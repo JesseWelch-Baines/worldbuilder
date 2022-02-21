@@ -1,0 +1,7 @@
+- new_field_id = SecureRandom.uuid
+div x-show="form_show['#{writable_field_id}']" @click.away="if (document.getElementById('#{class_name}_custom_fields_#{new_field_id}_name').value == '') {form_show['#{writable_field_id}'] = false}" class="py-5"
+  input type="hidden" id="#{class_name}_custom_fields_#{new_field_id}_order" name="#{class_name}[custom_fields][#{new_field_id}][order]" value="#{order}"
+  p
+    input type="text" id="#{class_name}_custom_fields_#{new_field_id}_name" name="#{class_name}[custom_fields][#{new_field_id}][name]" class="h-6 pb-1 pl-0 font-semibold" style="width: 232px;" @keyup="if (document.getElementById('#{class_name}_custom_fields_#{new_field_id}_name').value != '') {newInputFieldInit('#{class_name}','#{writable_field_id}','#{new_field_id}')} else {inputFieldDisable('#{class_name}','#{writable_field_id}','#{new_field_id}')};" placeholder="Field name"
+  p
+    = form.text_field 'new_text_field', disabled: true, class: "bg-gray-200", id: "new_field_#{writable_field_id}", "x-on:blur": "document.getElementById('submit_writable_form').click()", placeholder: "Field value"

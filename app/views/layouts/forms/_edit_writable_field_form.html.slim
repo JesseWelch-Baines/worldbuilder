@@ -1,0 +1,18 @@
+div @mouseover="controls_show['#{writable_field.id}'] = true" @mouseover.away="controls_show['#{writable_field.id}'] = false" 
+  div
+    span x-show="controls_show['#{writable_field.id}']" class="absolute flex flex-col -ml-10 space-y-0 text-gray-400"
+      - unless order.zero?
+        = link_to move_up_writable_field_path(writable_field, callback: request.path), class: "px-3 text-lg hover:text-blue-300" do
+          i class="fas fa-fw fa-arrow-up fa-xs"
+      - unless order == writable.writable_fields(current_user.id, Current.world.id).size - 1
+        = link_to move_down_writable_field_path(writable_field, callback: request.path), class: "px-3 text-lg hover:text-blue-300" do
+          i class="fas fa-fw fa-arrow-down fa-xs"
+      = link_to writable_field_path(writable_field, callback: request.path), method: :delete, class: "px-3 text-lg hover:text-blue-300" do
+        i class="fas fa-fw fa-trash fa-xs"
+
+    div
+      p
+        input[type="text" id="#{writable.class_name}_custom_fields_#{writable_field.id}_name" name="#{writable.class_name}[custom_fields][#{writable_field.id}][name]" class="h-6 pb-1 pl-0 font-semibold border-none focus:ring-inset focus:ring-2" style="width: 232px;"
+          value="#{writable_field.name}"
+          @keyup="if (document.getElementById('#{writable.class_name}_custom_fields_#{writable_field.id}_name').value != '') {newInputFieldInit('#{writable.class_name}','#{writable_field.id}','#{writable_field.id}')} else {inputFieldDisable('#{writable.class_name}','#{writable_field.id}','#{writable_field.id}')};"]
+      p = form.text_field writable.custom_field_values[writable_field.id], id: "#{writable.class_name}_custom_field_values_#{writable_field.id}", name: "#{writable.class_name}[custom_field_values][#{writable_field.id}]", value: writable.custom_field_values[writable_field.id]

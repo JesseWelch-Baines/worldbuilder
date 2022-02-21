@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title World Builder
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    link rel="icon" type="image/png" sizes="32x32" href="/favicon.png"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+    script defer="" src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"
+    script src="https://kit.fontawesome.com/b3bd5f4126.js" crossorigin="anonymous"
+
+  p class="fixed notice" = notice
+  p class="fixed alert" = alert
+  body class="bg-gray-200 font-hahmlet"
+    div class="py-24"
+      = render 'layouts/nav' if current_user
+      = render 'layouts/notices/notices'
+      div class="p-5 bg-gray-200"
+        = yield
+  footer class="flex flex-row justify-center text-white bg-gray-700 divide-x"
+    span class="p-3 text-center" Jesse Welch-Baines
+    span class="p-3 text-center" = mail_to "j.welch.baines@gmail.com"
+    span class="p-3 text-center" = link_to "linkedin.com/in/jesse-welch-baines", "https://www.linkedin.com/in/jesse-welch-baines"

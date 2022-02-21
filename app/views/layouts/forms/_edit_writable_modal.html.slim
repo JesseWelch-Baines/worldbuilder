@@ -1,0 +1,24 @@
+div class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-cloak="" x-show="form_instances['modal_edit_form_#{writable_instance.id}']" @keydown.escape="form_instances['modal_edit_form_#{writable_instance.id}'] = false"
+  div class="w-2/3 px-6 py-4 mx-auto text-left bg-white rounded shadow-lg" @click.away="form_instances['modal_edit_form_#{writable_instance.id}'] = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+    div class="flex items-center justify-between"
+      h5 class="mr-3 text-black max-w-none" Edit #{writable.class.to_s}
+      button type="button" class="z-50 cursor-pointer" @click="form_instances['modal_edit_form_#{writable_instance.id}'] = false"
+        svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
+    div
+      = form_with(model: writable, local: true, id: "edit_#{writable.class.to_s.downcase}_#{order}") do |form|
+        div class="px-6 my-5"
+          div class="pb-5"
+            p class="font-semibold" = form.label :name
+            p = form.text_field :name
+          div class="pb-5"
+            p class="font-semibold" = form.label :description
+            p = form.rich_text_area :description, data: {controller: 'mentions', 'mentions-target': 'field'}
+            span class="-mt-10 text-sm text-gray-400 text-opacity-60" Use @ to tag an element.
+          - @writable_fields.where(model: writable.class.to_s).each do |writable_field|
+            div class="pb-5"
+              p class="font-semibold" = writable_field.name
+              p = form.text_field writable.custom_field_values[writable_field.id], id: "#{writable.class_name}_custom_field_values_#{writable_field.id}", name: "#{writable.class_name}[custom_field_values][#{writable_field.id}]", value: writable.custom_field_values[writable_field.id]
+          = form.hidden_field :document_id, value: document_id
+          div class="flex flex-row justify-between"
+            = form.submit "Save #{writable.class.to_s}", class: "button"

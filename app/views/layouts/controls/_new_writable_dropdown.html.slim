@@ -1,0 +1,4 @@
+div x-cloak="" x-show="show#{model.capitalize}List" @click.away="show#{model.capitalize}List = false" class="flex flex-col px-2 py-2 bg-gray-200 border border-gray-100 divide-y-2 rounded-sm w-72"
+  span class="p-2 cursor-pointer hover:bg-gray-100" @click="showPanel = false; show#{model.capitalize}List = false; showNew#{model.capitalize}Form = true"
+    em New...
+  = render partial: 'layouts/controls/new_writable_dropdown_field', locals: {model: model, document_id: document_id, order: order}

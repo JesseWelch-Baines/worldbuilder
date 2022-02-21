@@ -1,0 +1,28 @@
+= render "signed_out_header"
+
+div class="flex flex-row justify-center"
+  div class="p-5 bg-gray-400 rounded-sm"
+    h2 class="pb-2 text-lg text-gray-100" Log in
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      div class="py-2 field"
+        = f.label :email, class: "text-gray-100"
+        br
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+
+      div class="py-2 field"
+        = f.label :password, class: "text-gray-100"
+        br
+        = f.password_field :password, autocomplete: "current-password"
+
+      - if devise_mapping.rememberable?
+        div class="flex flex-row py-2 space-x-2 field"
+          div = f.check_box :remember_me
+          div = f.label :remember_me, class: "text-gray-100"
+
+      div class="py-2 actions"
+        = f.submit "Log in", class: "button"
+
+    hr class="py-2 border-t border-gray-200"
+
+    = render "devise/shared/links"

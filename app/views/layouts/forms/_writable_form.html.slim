@@ -1,0 +1,62 @@
+
+= form_with model: writable, local: true do |form| 
+  div x-data="formInit(#{writable.writable_fields(current_user.id, Current.world.id).map(&:id) << 'footer'})" class="px-6 my-5"
+    div id="flash"
+      - flash.each do |msg_type, message|
+        = render partial: 'layouts/notices/flash', locals: {msg_type: msg_type, message: message}
+    = render partial: 'layouts/notices/errors', locals: {record: writable}
+    div class="pb-5"
+      p class="font-semibold" = form.label :name
+      p = form.text_field :name
+      
+    div class="#{writable.persisted? ? 'pb-2' : 'pb-5'}"
+      p class="font-semibold" = form.label :description
+      p = form.rich_text_area :description, data: {controller: 'mentions', 'mentions-target': 'field'}
+      span class="-mt-10 text-sm text-gray-400 text-opacity-60" Use @ to tag an element.
+      
+    - writable.writable_fields(current_user.id, Current.world.id).each_with_index do |writable_field, index|
+      - if writable.persisted?
+        button x-cloak="" @mouseover="button_show['#{writable_field.id}'] = true" @mouseover.away="button_show['#{writable_field.id}'] = false" :style="`opacity: ${button_show['#{writable_field.id}'] && !form_show['#{writable_field.id}'] ? '100%' : '0%'};`" @click="form_show['#{writable_field.id}'] = true" x-show="!form_show['#{writable_field.id}']" type="button" class="flex flex-row justify-center w-full py-5 focus:outline-none"
+          = render partial: "layouts/controls/new_list_item"
+
+        = render partial: "layouts/forms/new_writable_field_form", locals: {form: form, class_name: writable.class_name, writable_field_id: writable_field.id, order: index}
+
+      div class="#{'pb-5' unless writable.persisted?}"
+        = render partial: "layouts/forms/edit_writable_field_form", locals: {form: form, writable: writable, writable_field: writable_field, order: index}
+
+    - if writable.persisted?
+      button x-cloak="" @mouseover="button_show['footer'] = true" @mouseover.away="button_show['footer'] = false" :style="`opacity: ${button_show['footer'] && !form_show['footer'] ? '100%' : '0%'};`" @click="form_show['footer'] = true" x-show="!form_show['footer']" type="button" class="flex flex-row justify-center w-full py-5 focus:outline-none"
+        = render partial: "layouts/controls/new_list_item"
+        
+      = render partial: "layouts/forms/new_writable_field_form", locals: {form: form, class_name: writable.class_name, writable_field_id: 'footer', order: -1}
+      
+    div class="flex flex-row justify-between"
+      = form.submit class: "button", id: "submit_writable_form"
+      - if writable.persisted?
+        = link_to "Delete", url_for(writable), method: :delete, data: { confirm: 'Are you sure?' }, class: "button"
+
+javascript:
+  function formInit(writable_field_ids) {
+    return {
+      button_show: writable_field_ids.reduce((a,v)=> (a[v]=false,a),{}),
+      form_show: writable_field_ids.reduce((a,v)=> (a[v]=false,a),{}),
+      controls_show: writable_field_ids.reduce((a,v)=> (a[v]=false,a),{})
+    }
+  };
+  function newInputFieldInit(class_name, writable_field_id, new_id) {
+    new_field = document.getElementById('new_field_' + writable_field_id);
+    if (new_field != null) {
+      new_field.removeAttribute('disabled');
+      new_field.classList.remove('bg-gray-200');
+      new_field.id = (class_name + '_custom_field_values_' + new_id);
+      new_field.name = (class_name + '[custom_field_values][' + new_id + ']');
+    }
+  };
+  function inputFieldDisable(class_name, writable_field_id, field_id) {
+    input_field = document.getElementById(class_name + '_custom_field_values_' + field_id);
+    if (input_field != null) {
+      input_field.disabled = true;
+      input_field.classList.add('bg-gray-200');
+      input_field.id = ('new_field_' + writable_field_id);
+    }
+  };

@@ -1,0 +1,9 @@
+- if fields.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - fields.each_with_index do |field, index|
+        = render ListItemComponent.new(item: field, index: index, count: fields.size, links: item_list_links(field))
+
+div class="flex flex-row justify-center"
+  div class="flex flex-row justify-between w-1/2 pt-5"
+    = link_to "New Field", new_writable_field_path(model: model), class: "button"

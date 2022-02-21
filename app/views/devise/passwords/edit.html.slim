@@ -1,0 +1,27 @@
+= render "signed_out_header"
+
+div class="flex flex-row justify-center"
+  div class="p-5 bg-gray-400 rounded-sm"
+    h2 class="pb-2 text-lg text-gray-100" Forgot your password?
+
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      = f.hidden_field :reset_password_token
+
+      div class="field"
+        = f.label :password, "New password"
+        br
+        - if @minimum_password_length
+          em = "(#{@minimum_password_length} characters minimum)"
+          br
+        = f.password_field :password, autofocus: true, autocomplete: "new-password"
+
+      div class="field"
+        = f.label :password_confirmation, "Confirm new password"
+        br
+        = f.password_field :password_confirmation, autocomplete: "new-password"
+
+      div class="actions"
+        = f.submit "Change my password"
+
+    = render "devise/shared/links"

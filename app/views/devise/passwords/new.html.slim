@@ -1,0 +1,18 @@
+= render "signed_out_header"
+
+div class="flex flex-row justify-center"
+  div class="p-5 bg-gray-400 rounded-sm"
+    h2 class="pb-2 text-lg text-gray-100" Forgot your password?
+
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+
+      div class="py-2 field"
+        = f.label :email, class: "text-gray-100"
+        br
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+
+      div class="py-2 actions"
+        = f.submit "Send me reset password instructions", class: "button"
+
+    = render "devise/shared/links"

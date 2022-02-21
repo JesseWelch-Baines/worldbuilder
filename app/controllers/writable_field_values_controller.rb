@@ -1,0 +1,2 @@
+class WritableFieldValuesController < ApplicationController
+end

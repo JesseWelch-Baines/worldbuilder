@@ -1,0 +1,33 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
+development:
+  <<: *default
+  pool: <%= Rails.application.credentials[:pool] %>
+  host: <%= Rails.application.credentials[:host] %>
+  database: <%= Rails.application.credentials[:database_dev] %>
+  username: <%= Rails.application.credentials[:username] %>
+  password: <%= Rails.application.credentials[:password] %>
+
+test:
+  <<: *default
+  pool: <%= Rails.application.credentials[:pool] %>
+  host: <%= Rails.application.credentials[:host] %>
+  database: <%= Rails.application.credentials[:database_test] %>
+  username: <%= Rails.application.credentials[:username] %>
+  password: <%= Rails.application.credentials[:password] %>
+
+staging:
+  <<: *default
+  pool: <%= Rails.application.credentials[:pool] %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+production:
+  <<: *default
+  pool: <%= Rails.application.credentials[:pool] %>
+  host: <%= Rails.application.credentials[:prod_host] %>
+  database: <%= Rails.application.credentials[:database_prod] %>
+  username: <%= Rails.application.credentials[:username_prod] %>
+  password: <%= Rails.application.credentials[:password_prod] %>
+  #url: <%= Rails.application.credentials[:database_prod_url] %>

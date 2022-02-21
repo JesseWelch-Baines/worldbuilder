@@ -1,0 +1,42 @@
+nav class="fixed inset-x-0 top-0 z-10 h-24 text-gray-200 bg-gray-500"
+  div class="relative flex flex-row justify-center h-12"
+    div class="absolute top-0 left-0 flex flex-row p-3 text-xs" alpha v0.2.1
+    p class="absolute top-4"
+      = link_to root_path do
+        span = image_tag '/logobanner.png', size: '320x1600'
+    div class="absolute top-0 right-0 flex flex-row justify-end"
+      = link_to "Preferences", preferences_form_user_path(current_user), class: "p-3 bg-gray-500 text-gray-200 cursor-pointer"
+      = button_to "Log out", destroy_user_session_path, method: :delete, "data-turbo": false, class: "p-3 bg-gray-500 text-gray-200 cursor-pointer"
+  div class="flex flex-row justify-between"
+    div class="flex flex-row space-x-2"
+      = link_to "Documents", documents_path, class: "p-3"
+      = link_to "Paragraphs", paragraphs_path, class: "p-3"
+      = link_to "Characters", characters_path, class: "p-3"
+      = link_to "Locations", locations_path, class: "p-3"
+      = link_to "Items", items_path, class: "p-3"
+      = link_to "Events", events_path, class: "p-3"
+    - unless controller_name == "worlds"
+      div x-data="{worldDropdown: false, formDisplay: false}" @click.away="worldDropdown = false"
+        div @click="worldDropdown = true; formDisplay = false" class="flex flex-row justify-between w-64 p-3 space-x-2 bg-gray-700 rounded-sm cursor-pointer select-none"
+          p class="w-56" = Current.world.name
+          p class="flex flex-row justify-center w-8"
+            i class="mt-1 fas fa-caret-down"
+        div x-cloak="" x-show="worldDropdown" class="absolute w-64 overflow-hidden rounded-sm"
+          - @worlds.each do |world|
+            = link_to change_to_world_path(world, callback: request.path), method: :post do
+              div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400" = world.name
+          div @click="formDisplay = true; $nextTick(() => document.getElementById('world_name').focus()); " x-show="!formDisplay" class="p-3 text-gray-100 bg-gray-600 cursor-pointer hover:bg-gray-400"
+            em New...
+          div x-show="formDisplay" @keyup.enter="document.getElementById('new_world_submit_btn').click();" class="p-3 text-gray-500 bg-gray-600"
+            = form_for :world, method: 'post', url: create_from_nav_worlds_path(callback: request.path) do |form|
+              = form.text_field :name, placeholder: "Name"
+              = form.submit class: "button", style: "display: none;", id: "new_world_submit_btn"
+          = link_to worlds_path do
+            div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400"
+              i class="mr-1 fas fa-fw fa-cog fa-sm"
+              | Manage
+
+- if params[:action] == 'index'
+  = link_to export_list_writables_path(model: params[:controller].to_s), target: '_blank', class: "text-white fixed p-2 bg-gray-400 rounded-b-sm rounded-r-sm top-50" do
+    span Export to PDF
+    i class="ml-2 fas fa-fw fa-solid fa-download"
