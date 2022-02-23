@@ -1,0 +1,5 @@
+= render(partial: "layouts/title_panel", locals: {title: "Edit #{@writable_field.model} Field"})
+
+div class="p-6 my-5 bg-white rounded-sm"
+  p class="text-lg" Edit
+  = render partial: 'form', locals: {writable_field: @writable_field}

@@ -1,0 +1,9 @@
+- if @paragraphs.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - @paragraphs.each do |paragraph|
+        = render ListItemComponent.new(item: paragraph, index: 0, count: @paragraphs.size, links: item_list_links(paragraph))
+
+div class="flex flex-row justify-center"
+  div class="w-1/2 pt-5"
+    = link_to "New Paragraph", new_paragraph_path, class: "button"

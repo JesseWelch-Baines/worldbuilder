@@ -1,0 +1,10 @@
+- if @characters.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - @characters.each do |character|
+        = render ListItemComponent.new(item: character, index: 0, count: @characters.size, links: item_list_links(character))
+
+div class="flex flex-row justify-center"
+  div class="flex flex-row justify-between w-1/2 pt-5"
+    = link_to "New Character", new_character_path, class: "button"
+    = link_to "Manage Fields", fields_index_characters_path, class: "button"

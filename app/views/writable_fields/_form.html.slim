@@ -1,0 +1,11 @@
+div class="px-6 my-5"
+  = form_with model: writable_field, local: true do |form| 
+    = form.hidden_field(:model, value: writable_field.model)
+    div class="pb-5"
+      p class="font-semibold" = form.label :name
+      p = form.text_field :name
+
+    div class="flex flex-row justify-between"
+      = form.submit "Save Character Field", class: "button"
+      - if writable_field.persisted?
+        = link_to "Delete", writable_field_path(writable_field), method: :delete, data: { confirm: 'Are you sure?' }, class: "button"

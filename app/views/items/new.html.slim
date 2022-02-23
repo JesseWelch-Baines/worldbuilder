@@ -1,0 +1,5 @@
+= render(partial: "layouts/title_panel", locals: {title: 'New Item'})
+
+div class="p-6 my-5 bg-white rounded-sm"
+  p class="text-lg" New
+  = render partial: 'layouts/forms/writable_form', locals: {writable: @item}

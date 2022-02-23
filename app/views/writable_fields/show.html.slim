@@ -1,0 +1,12 @@
+= render(partial: "layouts/title_panel", locals: {title: @writable_field.name})
+
+div class="p-6 my-5 bg-white rounded-sm"
+  p class="text-lg"
+    |
+  div class="px-6 my-5"
+    div class="pb-5"
+      p class="font-semibold" Name
+      p = @writable_field.name
+
+div class="pt-5"
+  = link_to "Edit Writable Field", edit_writable_field_path, class: "button"

@@ -1,0 +1,11 @@
+- unless @writable_instance.order.zero?
+  = link_to move_up_writable_instance_path(@writable_instance, document_id: @document.id), class: "px-3 text-xl hover:text-blue-300 -mb-1" do
+    i class="fas fa-fw fa-arrow-up fa-xs"
+- unless @writable_instance.order == @document.writable_instances.size - 1
+  = link_to move_down_writable_instance_path(@writable_instance, document_id: @document.id), class: "px-3 text-xl hover:text-blue-300 -mb-1" do
+    i class="fas fa-fw fa-arrow-down fa-xs"
+- if @writable_instance.writable.instance_of?(Paragraph) && @writable_instance.writable.archived?
+  = link_to save_writable_writable_instance_path(@writable_instance, document_id: @document.id), class: "px-3 text-xl hover:text-blue-300 -mb-1" do
+    i class="fas fa-fw fa-save fa-xs"
+= link_to writable_instance_path(@writable_instance, document_id: @document.id), method: :delete, class: "px-3 text-xl hover:text-blue-300 -mb-1" do
+  i class="fas fa-fw fa-trash fa-xs"

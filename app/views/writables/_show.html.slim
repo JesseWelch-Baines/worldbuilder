@@ -1,0 +1,28 @@
+div class="p-6 my-5 bg-white rounded-sm"
+  p class="text-lg"
+    |
+  div class="px-6 my-5"
+    div class="pb-5"
+      p class="font-semibold" Name
+      p = writable.name
+    div class="pb-5"
+      p class="font-semibold" Description
+      p == writable.description
+    - if writable_fields.any?
+      - writable_fields.each do |writable_field|
+        div class="pb-5"
+          p class="font-semibold" = writable_field.name
+          p = writable.custom_field_values[writable_field.id]
+
+- if writable.writable_instances.any?
+  div class="p-6 my-5 bg-white rounded-sm"
+    p class="text-lg" Occurences
+    div class="px-6 my-5"
+      - writable.writable_instances.each do |writable_instance|
+        = link_to document_path(writable_instance.document) do
+          div class="flex flex-row justify-between p-3 rounded-sm hover:bg-gray-200"
+            p = writable_instance.document.name
+            p = writable_instance.document.writable_instances.select{|wi| wi.writable_id == writable.id}.count
+
+div class="pt-5"
+  = link_to "Edit #{writable.class.to_s}", edit_polymorphic_path(writable), class: "button"

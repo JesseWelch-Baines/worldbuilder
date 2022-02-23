@@ -1,0 +1,13 @@
+= form_with(model: paragraph, local: true) do |form|
+  div class="px-6 my-5"
+    = render(partial: 'layouts/notices/errors', locals: {record: paragraph})
+    div class="pb-5"
+      p class="font-semibold" = form.label :name
+      p = form.text_field :name
+    div class="pb-5"
+      p class="font-semibold" = form.label :description
+      p = form.rich_text_area :description, data: {controller: 'mentions', 'mentions-target': 'field'}
+    div class="flex flex-row justify-between"
+      = form.submit class: "button"
+      - if @paragraph.persisted?
+        = link_to "Delete", paragraph_path(@paragraph), method: :delete, data: { confirm: 'Are you sure?' }, class: "button"

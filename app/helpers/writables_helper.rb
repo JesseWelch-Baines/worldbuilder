@@ -1,0 +1,2 @@
+module WritablesHelper
+end

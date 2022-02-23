@@ -1,0 +1,4 @@
+= @form.rich_text_area :description, data: {controller: 'mentions', 'mentions-target': 'field'}, id: "field_#{@writable_instance_id}",
+  "@click.away": "form_instances['form_#{@writable_instance_id}'] = false",
+  "@keydown.enter": "paragraphFormEnter('submit_#{@writable_instance_id}', 'field_#{@writable_instance_id}', shiftPressed);"
+span class="-mt-10 text-sm text-gray-400 text-opacity-60" Use @ to tag an element. Shift+enter for new line.

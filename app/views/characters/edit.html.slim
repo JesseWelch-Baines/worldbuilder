@@ -1,0 +1,6 @@
+= render(partial: "layouts/title_panel", locals: {title: @character.name})
+
+div class="p-6 my-5 bg-white rounded-sm"
+  p class="text-lg" Edit
+  = turbo_frame_tag 'writable_form'
+    = render partial: 'layouts/forms/writable_form', locals: {writable: @character}

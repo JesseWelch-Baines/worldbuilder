@@ -1,0 +1,9 @@
+- if @documents.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - @documents.each do |document|
+        = render ListItemComponent.new(item: document, index: 0, count: @documents.size, links: item_list_links(document))
+
+div class="flex flex-row justify-center"
+  div class="w-1/2 pt-5"
+    = link_to "New Document", new_document_path, class: "button"

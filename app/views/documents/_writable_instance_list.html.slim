@@ -1,0 +1,49 @@
+
+div x-data="instanceListInit(#{document.writable_instances.map(&:id)})" @keydown.shift="shiftPressed = true" @keyup.shift="shiftPressed = false" class="px-1 pr-12 bg-white rounded-sm"
+  p class="text-lg"
+    |
+  div class="mt-5"
+    = render partial: 'layouts/controls/new_writable_menu', locals: {order: 0, paragraphs: paragraphs, characters: characters, locations: locations, items: items, events: events}
+    - document.writable_instances.each_with_index do |writable_instance, index|
+      - writable = writable_instance.writable
+      div @mouseover="hover_instances['hover_#{writable_instance.id}'] = true" @mouseover.away="hover_instances['hover_#{writable_instance.id}'] = false" 
+        div @click="form_instances['modal_edit_form_#{writable_instance.id}'] = true" class="pl-12 text-lg #{writable.color} font-semibold cursor-pointer" = writable[:name]
+        div
+          span x-show="hover_instances['hover_#{writable_instance.id}']" class="absolute flex flex-col -mt-6 space-y-0 text-gray-400"
+            = render(Documents::WritableSidebarComponent.new(writable_instance: writable_instance, document: document))
+          div class="pl-12"
+            div class="text-lg #{'p-4 border border-gray-400 rounded-sm shadow-md bg-gray-100' unless writable.class == Paragraph}"
+              - if writable.class == Paragraph
+                span x-show="!form_instances['form_#{writable_instance.id}']" @click="form_instances['form_#{writable_instance.id}'] = true" == writable.description.body
+                div x-cloak="" x-show="form_instances['form_#{writable_instance.id}']"
+                  = form_with(model: writable, local: true) do |form|
+                    = form.hidden_field(:document_id, value: document.id)
+                    = render (Documents::ParagraphFieldComponent.new(form: form, writable_instance_id: writable_instance.id))
+                    = form.submit class: "button", id: "submit_#{writable_instance.id}", style: "display: none;"
+              - else
+                span == writable.description.body
+                = render partial: 'layouts/forms/edit_writable_modal', locals: {writable_instance: writable_instance, writable: writable, order: index + 1, document_id: document.id}
+
+      = render partial: 'layouts/controls/new_writable_menu', locals: {order: index + 1, paragraphs: paragraphs, characters: characters, locations: locations, items: items, events: events}
+    div x-cloak="" x-show="showFooterNewParagraphForm" class="pb-5 ml-10"
+      = form_for "new_paragraph_#{document.writable_instances.size + 1}", method: 'post', url: create_from_document_paragraphs_path(document_id: document.id, order: document.writable_instances.size + 1) do |form|
+        = render (Documents::ParagraphFieldComponent.new(form: form, writable_instance_id: document.writable_instances.size + 1))
+        = form.submit class: "button", id: "submit_#{document.writable_instances.size + 1}", style: "display: none;"
+
+
+javascript:
+  function instanceListInit(instance_ids) {
+    return {
+      shiftPressed: false,
+      showFooterNewParagraphForm: true,
+      modal_edit_form_instances: instance_ids.reduce((a,v)=> (a['modal_edit_form_' + v]=false,a),{}),
+      form_instances: instance_ids.reduce((a,v)=> (a['form_' + v]=false,a),{}),
+      hover_instances: instance_ids.reduce((a,v)=> (a['hover_' + v]=false,a),{})
+    }
+  };
+  function paragraphFormEnter(submit_id, field_id, shiftPressed) {
+    field = document.getElementById(field_id);
+    if (!shiftPressed && !field.tribute.isActive) {
+      document.getElementById(submit_id).click();
+    }
+  };

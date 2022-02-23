@@ -1,0 +1,10 @@
+- if @events.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - @events.each do |event|
+        = render ListItemComponent.new(item: event, index: 0, count: @events.size, links: item_list_links(event))
+        
+div class="flex flex-row justify-center"
+  div class="flex flex-row justify-between w-1/2 pt-5"
+    = link_to "New Event", new_event_path, class: "button"
+    = link_to "Manage Fields", fields_index_events_path, class: "button"

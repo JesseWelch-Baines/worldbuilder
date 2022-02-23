@@ -1,0 +1,11 @@
+= form_with(model: @user, local: true) do |form|
+  div class="flex flex-col space-y-2"
+    /div class="flex flex-row space-x-2"
+      = form.check_box :always_show_writable_names, id: "user_always_show_writable_names", class: "mt-1"
+      = form.label "Always show document section names", for: "user_always_show_writable_names"
+
+    div class="flex flex-row space-x-2"
+      = form.check_box :save_copy_of_paragraphs, id: "user_save_copy_of_paragraphs", class: "mt-1"
+      = form.label "Save copy of document paragraphs", for: "user_save_copy_of_paragraphs"
+
+  = form.submit "Save", class: "button mt-3"

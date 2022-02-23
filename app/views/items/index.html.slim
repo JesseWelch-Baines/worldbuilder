@@ -1,0 +1,10 @@
+- if @items.any?
+  div class="flex flex-row justify-center"
+    div class="w-1/2 p-2 bg-gray-300 rounded-sm"
+      - @items.each do |item|
+        = render ListItemComponent.new(item: item, index: 0, count: @items.size, links: item_list_links(item))
+
+div class="flex flex-row justify-center"
+  div class="flex flex-row justify-between w-1/2 pt-5"
+    = link_to "New Item", new_item_path, class: "button"
+    = link_to "Manage Fields", fields_index_items_path, class: "button"
