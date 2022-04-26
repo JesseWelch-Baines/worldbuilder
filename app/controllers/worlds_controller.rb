@@ -64,7 +64,9 @@ class WorldsController < ApplicationController
   def change_to
     session[:world_id] = params[:id]
 
-    redirect_to params[:callback]
+    callback = params[:callback] == "/worlds" ? root_path : params[:callback]
+
+    redirect_to callback
   end
 
   def generate_elements

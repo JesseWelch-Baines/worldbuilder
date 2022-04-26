@@ -1,4 +1,6 @@
 class World < ApplicationRecord
+  include Utilities
+
   belongs_to :user
   has_many :paragraphs, dependent: :destroy
   has_many :characters, dependent: :destroy
@@ -37,7 +39,7 @@ class World < ApplicationRecord
 
     association(model).scope.each do |record|
       pdf.formatted_text([{ text: record.name, style: [:bold] }])
-      pdf.text(record.description.to_trix_html)
+      pdf.text(sanitise_attachments(record.description.to_trix_html))
       pdf.move_down 20
     end
 

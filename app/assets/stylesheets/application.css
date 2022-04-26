@@ -13,19 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-[x-cloak] { display: none; }
-
-.attachment--preview {
-  margin: 0.6em 0;
-  text-align: center;
-  width: 100%;
-}
-
-.attachment{
-  display: inline-block;
-  position: relative;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}

@@ -4,7 +4,7 @@ div class="flex flex-row justify-center"
   div class="p-5 bg-gray-400 rounded-sm"
     h2 class="pb-2 text-lg text-gray-100" Forgot your password?
 
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { data: {turbo_method: :post} }) do |f|
       = render "devise/shared/error_messages", resource: resource
 
       div class="py-2 field"
