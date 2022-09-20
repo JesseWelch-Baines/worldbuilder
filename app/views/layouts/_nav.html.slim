@@ -36,7 +36,7 @@ nav class="fixed inset-x-0 top-0 z-10 h-24 text-gray-200 bg-gray-500"
               i class="mr-1 fas fa-fw fa-cog fa-sm"
               | Manage
 
-- if params[:action] == 'index'
+/- if params[:action] == 'index'
   = link_to export_list_writables_path(model: params[:controller].to_s), target: '_blank', class: "text-white fixed p-2 bg-gray-400 rounded-br-md top-50" do
     span Export to PDF
     i class="ml-2 fas fa-fw fa-solid fa-download"

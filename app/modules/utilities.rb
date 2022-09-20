@@ -12,8 +12,7 @@ module Utilities
 
   def sanitise_attachments(trix_html)
     trix_html.gsub("<figure*/figure>") {|attachment| attachment_text(attachment)}
-    #puts CGI.unescapeHTML(JSON.parse("{#{trix_html.scan(/{([^}]*)}/).first.last}}")["content"])
-    puts trix_html
+    puts CGI.unescapeHTML(JSON.parse("{#{trix_html.scan(/{([^}]*)}/).first.last}}")["content"])
     return trix_html
   end
 

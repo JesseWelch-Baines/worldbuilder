@@ -6,6 +6,6 @@ div class="px-6 my-5"
       p = form.text_field :name
 
     div class="flex flex-row justify-between"
-      = form.submit "Save Character Field", class: "button"
+      = form.submit "Save #{writable_field.model} Field", class: "button"
       - if writable_field.persisted?
         = link_to "Delete", writable_field_path(writable_field), method: :delete, data: { confirm: 'Are you sure?' }, class: "button"
