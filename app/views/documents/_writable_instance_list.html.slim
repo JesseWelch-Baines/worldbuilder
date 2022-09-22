@@ -47,3 +47,9 @@ javascript:
       document.getElementById(submit_id).click();
     }
   };
+  function paragraphFormClickAway(submit_id, field_id) {
+    field = document.getElementById(field_id);
+    if (field.getAttribute('input').startsWith('field')) {
+      document.getElementById(submit_id).click();
+    }
+  };
