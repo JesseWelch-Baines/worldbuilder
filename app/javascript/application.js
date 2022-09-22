@@ -2,6 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "trix"
+import 'trix/dist/trix.css';
 import "tribute"
 import "@rails/actiontext"
-import "./actiontext.scss";
