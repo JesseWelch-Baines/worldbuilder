@@ -4,3 +4,4 @@ import "controllers"
 import "trix"
 import "tribute"
 import "@rails/actiontext"
+import "./actiontext.scss";
