@@ -1,0 +1,5 @@
+<div id="flash">
+  <% flash.select{|f| f != 'frame'}.each do |msg_type, message| %>
+    <%= render partial: 'layouts/notices/flash', locals: {msg_type: msg_type, message: message} %>
+  <% end %>
+</div>

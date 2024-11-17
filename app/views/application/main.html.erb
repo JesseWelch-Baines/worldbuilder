@@ -1,0 +1,24 @@
+<% if @records.present? %>
+  <div class="mx-auto box-border md:masonry-2-col lg:masonry-3-col before:box-inherit after:box-inherit">
+    <% @records.each do |record| %>
+      <%= link_to url_for(record) do %>
+        <div class="p-4 mb-6 bg-gray-100 rounded-lg break-inside">
+          <div class="font-semibold #{record.color}"><%= record.name %></div>
+          <div><%= strip_links(record.description.to_s) %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="flex flex-row justify-center">
+    <div class="flex flex-col">
+      <div class="flex flex-row justify-center">
+        <span class="justify-center font-semibold">Get started</span>
+      </div>
+      <div class="flex flex-row pt-5 space-x-10">
+        <span><%#= link_to 'Generate a new world', generate_elements_world_path(Current.world.id, callback: request.path), class: "button" %></span>
+        <span><%#= link_to 'Create a new document', new_document_path, class: "button" %></span>
+      </div>
+    </div>
+  </div>
+<% end %>

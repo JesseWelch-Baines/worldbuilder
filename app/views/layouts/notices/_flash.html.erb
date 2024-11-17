@@ -1,0 +1,7 @@
+<div x-data="{showFlash: true, hovering: false}" x-show="showFlash" x-init="flashTimer = setTimeout(() => showFlash = hovering, 5000)"
+    <% if message.class == Array %>
+      <%= message.join(", ") %>
+    <% else %>
+      <%= message %>
+    <% end %>>
+</div>

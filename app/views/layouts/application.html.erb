@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Worldbuilder2" %></title>
+    <title><%= content_for(:title) || "Worldbuilder" %></title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,9 +24,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+  <body class="bg-gray font-hahmlet">
+    <main class="container flex px-5 mx-auto mt-28">
+      <div class="py-24">
+        <%= render 'layouts/nav' if current_user %>
+        <%= render 'layouts/notices/notices' %>
+        <div class="p-5 bg-gray-200">
+          <%= yield %>
+        </div>
+      </div>
     </main>
   </body>
+
+  <footer class="flex flex-row justify-center text-white bg-gray-700 divide-x">
+    <span class="p-3 text-center">Jesse Welch-Baines</span>
+    <span class="p-3 text-center"><%= mail_to "j.welch.baines@gmail.com" %></span>
+    <span class="p-3 text-center"><%= link_to "linkedin.com/in/jesse-welch-baines", "https://www.linkedin.com/in/jesse-welch-baines" %></span>
+
 </html>

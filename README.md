@@ -22,3 +22,12 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Restart DB service
+sudo service postgresql restart
+
+# Login as postgres user
+sudo su - postgres
+
+# Postgresql console
+psql
