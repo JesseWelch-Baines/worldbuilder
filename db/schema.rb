@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_17_171326) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_17_225324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -26,8 +26,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_171326) do
     t.index ["user_id"], name: "index_article_categories_on_user_id"
   end
 
+  create_table "article_instances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "document_id", null: false
+    t.uuid "article_id", null: false
+    t.string "article_type", null: false
+    t.integer "order"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id", "article_type"], name: "index_article_instances_on_article_id_and_article_type"
+    t.index ["document_id"], name: "index_article_instances_on_document_id"
+    t.index ["status"], name: "index_article_instances_on_status"
+    t.index ["user_id"], name: "index_article_instances_on_user_id"
+  end
+
   create_table "articles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
+    t.uuid "world_id", null: false
     t.uuid "article_category_id", null: false
     t.string "name", null: false
     t.integer "status", default: 0, null: false
@@ -36,6 +52,31 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_171326) do
     t.index ["article_category_id"], name: "index_articles_on_article_category_id"
     t.index ["status"], name: "index_articles_on_status"
     t.index ["user_id"], name: "index_articles_on_user_id"
+    t.index ["world_id"], name: "index_articles_on_world_id"
+  end
+
+  create_table "documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "world_id", null: false
+    t.string "name", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_documents_on_status"
+    t.index ["user_id"], name: "index_documents_on_user_id"
+    t.index ["world_id"], name: "index_documents_on_world_id"
+  end
+
+  create_table "paragraphs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "world_id", null: false
+    t.string "name"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_paragraphs_on_status"
+    t.index ["user_id"], name: "index_paragraphs_on_user_id"
+    t.index ["world_id"], name: "index_paragraphs_on_world_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,0 +1,49 @@
+<div x-data="articleInit()" @click.away="showPanel = false" @keydown.shift="shiftPressed = true" @keyup.shift="shiftPressed = false" class="ml-10">
+  <div x-cloak="" x-show="showNewParagraphForm" class="pt-12">
+    <%= form_for "new_paragraph_#{order}", method: "post", url: "#" do |form| %> <%# url: create_from_document_paragraphs_path(document_id: @document.id, order: order) %>
+      <%= form.rich_text_area :description, data: { controller: "mentions", "mentions-target": "field" },
+            "@click.away": "if (document.getElementsByName('new_paragraph_#{order}[description]').value == '') {showNewParagraphForm = false} else {document.getElementById('submit_#{order}').click()}",
+            "@keydown.enter": "if (!shiftPressed){if (document.getElementsByName('new_paragraph_#{order}[description]').value == '') {showNewParagraphForm = false} else {document.getElementById('submit_#{order}').click()}}" %>
+      <span class="-mt-10 text-sm text-gray-400 text-opacity-60">Use @ to tag an element. Shift+enter for new line.</span>
+      <%= form.submit class: "button", id: "submit_#{order}", style: "display: none;" %>
+    <% end %>
+  </div>
+  <button x-cloak="" @mouseover="showButton = true" @mouseover.away="showButton = false" :style="`opacity: ${showButton && !showNewParagraphForm ? '100%' : '0%'};`" x-show="!showPanel && !showNewParagraphForm" @click="showPanel = true" type="button" class="flex flex-row justify-center py-5 w-full focus:outline-none">
+    <%= render partial: "layouts/controls/new_list_item" %>
+  </button>
+  <%= render Documents::ArticleMenuButtonsComponent.new(order: order) %>
+  <div class="flex overflow-visible flex-row justify-center">
+    <div x-cloak="" x-show="showParagraphList" @click.away="showParagraphList = false" class="flex flex-col py-2 px-2 w-72 bg-gray-200 rounded-sm border border-gray-100 divide-y-2">
+      <span class="p-2 cursor-pointer hover:bg-white" @click="showParagraphList = false; showButton = false; showNewParagraphForm = true; $nextTick(() => document.getElementById('new_paragraph_#{order}_description').focus());">
+        <em>New...</em>
+      </span>
+      <% paragraphs.each do |paragraph| %>
+        <% if paragraph.name.blank? %>
+          <%= link_to create_instance_paragraph_path(paragraph, document_id: @document.id, order: order), class: "hover:bg-white p-2", "@click": "showParagraphList = false; showButton = false;" do %>
+            <em><%= "\"#{paragraph.description.to_plain_text.truncate(40, separator: " ")}\"" %></em>
+          <% end %>
+        <% else %>
+          <%= link_to paragraph.name.truncate(40, separator: " "), create_instance_paragraph_path(paragraph, document_id: @document.id, order: order), class: "hover:bg-white p-2", "@click": "showParagraphList = false; showButton = false;" %>
+        <% end %>
+      <% end %>
+    </div>
+    <% current_user.article_categories.each do |ac| %>
+      <%= render partial: "layouts/controls/new_article_dropdown", locals: { articles: current_user.articles.find(article_category: ac), document_id: @document.id, order: order } %>
+    <% end %>
+  </div>
+  <%= render partial: "layouts/forms/new_article_modal", locals: { document_id: @document.id, order: order } %>
+</div>
+
+<script>
+  function articleInit() {
+    return {
+      showPanel: false,
+      showButton: false,
+      showNewParagraphForm: false,
+      showNewArticleForm: false,
+      shiftPressed: false,
+      showParagraphList: false,
+      showArticleList: false,
+    }
+  }
+</script>

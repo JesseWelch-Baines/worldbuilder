@@ -1,0 +1,121 @@
+require:
+  - rubocop-rails
+  - rubocop-minitest
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "tmp/**/*"
+    - "bin/**/*"
+    - "public/**/*"
+    - "vendor/**/*"
+    - "log/**/*"
+    - "storage/**/*"
+    - "db/migrate**/*"
+    - "config/**/*"
+
+Bundler/OrderedGems:
+  Enabled: false
+Style/MixinGrouping:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+Style/WordArray:
+  EnforcedStyle: brackets
+Style/Documentation:
+  Enabled: false
+Style/CommentAnnotation:
+  Keywords:
+    - NOTE
+    - TODO
+    - REFACTOR
+    - REVIEW
+    - DEBUG
+    - HACK
+Style/ParallelAssignment:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/RescueModifier:
+  Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  AutoCorrect: false
+Lint/UnusedBlockArgument:
+  AutoCorrect: false
+Metrics/ParameterLists:
+  Max: 20
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+  Max: 60
+Metrics/ClassLength:
+  Max: 400
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+Metrics/MethodLength:
+  Max: 80
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+Metrics/BlockLength:
+  Max: 40
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  Exclude:
+    - test/**/*
+Metrics/PerceivedComplexity:
+  Max: 30
+Metrics/CyclomaticComplexity:
+  Max: 30
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/LineLength:
+  Max: 144
+Naming/VariableNumber:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
+Naming/PredicateName:
+  NamePrefix:
+    - is_
+    - have_
+  ForbiddenPrefixes:
+    - is_
+    - have_
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false
+Performance/CollectionLiteralInLoop:
+  MinSize: 4
+Minitest/MultipleAssertions:
+  Exclude:
+    - test/integration/**/*
+    - test/system/**/*

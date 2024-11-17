@@ -26,7 +26,7 @@
     <div class="flex flex-row justify-between">
       <%= form.submit class: "button" %>
       <% if @world.persisted? %>
-        <%= link_to "Delete", world_path(@world), method: :delete, data: { confirm: 'Are you sure? This will delete all elements in this world.' }, class: "button" %>
+        <%= link_to "Delete", world_path(@world), data: {turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this world." } %>
       <% end %>
     </div>
   </div>

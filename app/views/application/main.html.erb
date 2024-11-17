@@ -17,7 +17,7 @@
       </div>
       <div class="flex flex-row pt-5 space-x-10">
         <span><%#= link_to 'Generate a new world', generate_elements_world_path(Current.world.id, callback: request.path), class: "button" %></span>
-        <span><%#= link_to 'Create a new document', new_document_path, class: "button" %></span>
+        <span><%= link_to "Create a new document", new_document_path, class: "button" %></span>
       </div>
     </div>
   </div>

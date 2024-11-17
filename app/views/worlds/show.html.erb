@@ -1,0 +1,14 @@
+<%= render partial: "layouts/title_panel", locals: { title: @world.name } %>
+
+<div class="p-6 my-5 bg-white rounded-sm">
+  <div class="px-6 my-5">
+    <div class="pb-5">
+      <p class="font-semibold">Name</p>
+      <p><%= @world.name %></p>
+    </div>
+  </div>
+</div>
+
+<div class="pt-5">
+  <%= link_to "Edit World", edit_world_path, class: "button" %>
+</div>
