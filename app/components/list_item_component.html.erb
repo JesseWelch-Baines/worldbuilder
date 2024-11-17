@@ -1,0 +1,27 @@
+<div class="flex flex-row justify-between rounded-sm hover:bg-gray-200">
+  <%= link_to url_for(@item), class: "w-full p-3" do %>
+    <p><%= @item.name.present? ? @item.name : @item.description.to_plain_text.truncate(75, separator: ' ') %></p>
+  <% end %>
+
+  <% if @links[:move_up_path].present? && @index != 0 %>
+    <%= link_to @links[:move_up_path], class: "text-lg hover:text-blue-500 text-center px-2" do %>
+      <i class="pt-4 h-full fas fa-fw fa-arrow-up"></i>
+    <% end %>
+  <% end %>
+
+  <% if @links[:move_down_path].present? && @index + 1 != @count %>
+    <%= link_to @links[:move_down_path], class: "text-lg hover:text-blue-500 text-center px-2" do %>
+      <i class="pt-4 h-full fas fa-fw fa-arrow-down"></i>
+    <% end %>
+  <% end %>
+
+  <% if @links[:change_to_path].present? %>
+    <%= link_to @links[:change_to_path], data: {turbo_method: :post}, class: "text-lg hover:text-blue-500 text-center px-2" do %>
+      <i class="pt-4 h-full fas fa-fw fa-door-open"></i>
+    <% end %>
+  <% end %>
+
+  <%= link_to edit_polymorphic_path(@item), class: "text-lg hover:text-blue-500 text-center px-2" do %>
+    <i class="pt-4 h-full fas fa-fw fa-edit"></i>
+  <% end %>
+</div>

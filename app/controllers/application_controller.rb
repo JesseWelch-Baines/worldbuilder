@@ -25,14 +25,28 @@ class ApplicationController < ActionController::Base
       session_world = World.find_by(id: session[:world_id])
 
       if session_world.present?
-        Current.world = session_world.user_id == current_user.id ? session_world : current_user.worlds.create(name: "My World")
+        Current.world = session_world.user_id == current_user.id ? session_world : current_user.worlds.create(name: 'My World')
       else
-        Current.world = current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: "My World")
+        Current.world = current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: 'My World')
       end
     else
-      Current.world = current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: "My World")
+      Current.world = current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: 'My World')
     end
   end
+
+  def set_current_world
+    puts '======================='
+    puts params[:id]
+    puts '======================='
+
+    session[:world_id] = params[:world_id]
+
+    callback = params[:callback] == '/worlds' ? root_path : params[:callback]
+
+    redirect_to callback
+  end
+
+  private
 
   def set_worlds
     @worlds = current_user.worlds.where.not(id: Current.world.id).order(:created_at) if current_user.present?

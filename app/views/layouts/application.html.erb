@@ -22,11 +22,12 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/75ddb26609.js" crossorigin="anonymous"></script>
   </head>
 
   <body class="bg-gray font-hahmlet">
     <main class="container flex px-5 mx-auto mt-28">
-      <div class="py-24">
+      <div class="py-24 w-full">
         <%= render 'layouts/nav' if current_user %>
         <%= render 'layouts/notices/notices' %>
         <div class="p-5 bg-gray-200">

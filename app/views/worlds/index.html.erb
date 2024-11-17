@@ -1,0 +1,15 @@
+<% if @worlds.any? %>
+  <div class="flex flex-row justify-center">
+    <div class="p-2 w-1/2 bg-gray-300 rounded-sm">
+      <% @worlds.each do |world| %>
+        <%= render ListItemComponent.new(item: world, index: 0, count: @worlds.size, links: item_list_links(world)) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="flex flex-row justify-center">
+  <div class="pt-5 w-1/2">
+    <%= link_to "New World", new_world_path, class: "button" %>
+  </div>
+</div>

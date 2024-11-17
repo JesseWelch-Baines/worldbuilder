@@ -1,0 +1,33 @@
+<%= form_with(model: world, local: true) do |form| %>
+  <div x-data="{showGenOptions: false}" class="px-6 my-5">
+    <%= render(partial: 'layouts/notices/errors', locals: { record: world} ) %>
+    <div class="pb-5">
+      <p class="font-semibold"><%= form.label :name %></p>
+      <p><%= form.text_field :name %></p>
+    </div>
+
+    <% unless world.persisted? %>
+
+      <div class="flex flex-row justify-between">
+        <button class="py-1 px-2 mb-5 font-bold text-white rounded cursor-pointer" :class="showGenOptions ? 'bg-gray-400 hover:bg-gray-500' : 'bg-blue-500 hover:bg-blue-700'" style="width: 232px;" type="button" @click="showGenOptions = !showGenOptions" x-text="showGenOptions ? 'Cancel' : 'Generation options'"></button>
+      </div>
+      <div x-show="showGenOptions">
+        <div class="pb-5">
+          <p class="font-semibold">Type</p>
+          <p><%= form.select :gen_type, options_for_select(["Simple"]), {}, class: "form-select w-56", style: "width: 232px;", ":disabled": "!showGenOptions" %></p>
+        </div>
+        <div class="pb-5">
+          <p class="font-semibold">Type</p>
+          <p><%= form.number_field :gen_size, value: 5, class: "border-gray-400 rounded-sm", ":disabled": "!showGenOptions" %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="flex flex-row justify-between">
+      <%= form.submit class: "button" %>
+      <% if @world.persisted? %>
+        <%= link_to "Delete", world_path(@world), method: :delete, data: { confirm: 'Are you sure? This will delete all elements in this world.' }, class: "button" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<div class="flex flex-row justify-center">
+  <div class="flex flex-row justify-between p-2 text-lg bg-gray-300 rounded-sm md:w-1/2 sm:w-2/3">
+    <%= title %>
+    <% if local_variables.include?(:edit_link) %>
+      <%= link_to edit_link, class: "px-3 -mt-1 text-lg hover:text-blue-500" do %>
+        <i class="fas fa-fw fa-edit fa-xs"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

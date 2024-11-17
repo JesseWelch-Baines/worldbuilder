@@ -20,33 +20,31 @@
       <%#= link_to "Items", items_path, class: "p-3" %>
       <%#= link_to "Events", events_path, class: "p-3" %>
     </div>
-    <% unless controller_name == "worlds" %>
-      <div x-data="{worldDropdown: false, formDisplay: false}">
-        <div @click="worldDropdown = true; formDisplay = false" class="flex flex-row justify-between p-3 space-x-2 w-64 bg-gray-700 rounded-sm cursor-pointer select-none">
-          <p class="w-56"><%= Current.world.name %></p>
-          <p class="flex flex-row justify-center w-8">
-            <i class="mt-1 fas fa-caret-down"></i>
-          </p>
-        </div>
-        <div x-cloak x-show="worldDropdown" class="overflow-hidden absolute w-64 rounded-sm">
-          <% @worlds.each do |world| %>
-            <%= link_to change_to_world_path(world, callback: request.path), data: {turbo_method: :post} do %>
-              <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400"><%= world.name %></div>
-            <% end %>
-          <% end %>
-          <div>
-            <%= form_for :world, method: 'post', url: worlds_path(callback: request.path) do |form| %>
-              <%= form.text_field :name, placeholder: "Name" %>
-              <%= form.submit class: "button", style: "display: none;", id: "new_world_submit_btn" %>
-            <% end %>
-          </div>
-          <%= link_to worlds_path do %>
-            <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400">
-              <i class="mr-1 fas fa-fw fa-cog fa-sm">Manage</i>
-            </div>
-          <% end %>
-        </div>
+    <div x-data="{worldDropdown: false, formDisplay: false}">
+      <div @click="worldDropdown = true; formDisplay = false" class="flex flex-row justify-between p-3 space-x-2 w-64 bg-gray-700 rounded-sm cursor-pointer select-none">
+        <p class="w-56"><%= Current.world.name %></p>
+        <p class="flex flex-row justify-center w-8">
+          <i class="mt-1 fas fa-caret-down"></i>
+        </p>
       </div>
-    <% end %>
+      <div x-cloak x-show="worldDropdown" class="overflow-hidden absolute w-64 rounded-sm">
+        <% @worlds.each do |world| %>
+          <%= link_to set_current_world_path(world_id: world.id, callback: request.path), data: {turbo_method: :post} do %>
+            <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400"><%= world.name %></div>
+          <% end %>
+        <% end %>
+        <div>
+          <%= form_for :world, method: 'post', url: worlds_path(callback: request.path) do |form| %>
+            <%= form.text_field :name, placeholder: "Name" %>
+            <%= form.submit class: "button", style: "display: none;", id: "new_world_submit_btn" %>
+          <% end %>
+        </div>
+        <%= link_to worlds_path do %>
+          <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400">
+            <i class="mr-1 fas fa-fw fa-cog fa-sm"></i>Manage
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </nav>
