@@ -22,11 +22,13 @@
     </div>
     <% unless controller_name == "worlds" %>
       <div x-data="{worldDropdown: false, formDisplay: false}">
-        <p class="w-56"><%= Current.world.name %></p>
-        <p class="flex flex-row justify-center w-8">
-          <i class="mt-1 fas fa-caret-down"></i>
-        </p>
-        <div x-cloak="" x-show="worldDropdown" class="overflow-hidden absolute w-64 rounded-sm">
+        <div @click="worldDropdown = true; formDisplay = false" class="flex flex-row justify-between p-3 space-x-2 w-64 bg-gray-700 rounded-sm cursor-pointer select-none">
+          <p class="w-56"><%= Current.world.name %></p>
+          <p class="flex flex-row justify-center w-8">
+            <i class="mt-1 fas fa-caret-down"></i>
+          </p>
+        </div>
+        <div x-cloak x-show="worldDropdown" class="overflow-hidden absolute w-64 rounded-sm">
           <% @worlds.each do |world| %>
             <%= link_to change_to_world_path(world, callback: request.path), data: {turbo_method: :post} do %>
               <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400"><%= world.name %></div>
