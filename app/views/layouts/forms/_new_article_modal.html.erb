@@ -1,22 +1,35 @@
-div class="flex overflow-auto fixed inset-0 z-30 justify-center items-center bg-black bg-opacity-50" x-cloak="" x-show="showNew#{model.capitalize}Form" @keydown.escape="showNew#{model.capitalize}Form = false"
-  div class="py-4 px-6 mx-auto w-2/3 text-left bg-white rounded shadow-lg" @click.away="showNew#{model.capitalize}Form = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-    div class="flex justify-between items-center"
-      h5 class="mr-3 max-w-none text-black" New #{model.capitalize}
-      button type="button" class="z-50 cursor-pointer" @click="showNew#{model.capitalize}Form = false"
-        svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
-    div
-      = form_for "new_#{model}_#{order}", method: 'post', url: "/#{model.pluralize}/create_from_document?document_id=#{document_id}&order=#{order}" do |form|
-        div class="px-6 my-5"
-          div class="pb-5"
-            p class="font-semibold" = form.label :name
-            p = form.text_field :name
-          div class="pb-5"
-            p class="font-semibold" = form.label :description
-            p = form.rich_text_area :description, data: {controller: 'mentions', 'mentions-target': 'field'}
-          - @writable_fields.where(model: model.capitalize).each do |writable_field|
-            div class="pb-5"
-              p class="font-semibold" = form.label writable_field.name
-              p = form.text_field writable_field.name, id: "#{model}_custom_field_values_#{writable_field.id}", name: "#{model}[custom_field_values][#{writable_field.id}]"
-          div class="flex flex-row justify-between"
-            = form.submit "Save New #{model.capitalize}", class: "button"
+<div class="flex overflow-auto fixed inset-0 z-30 justify-center items-center bg-black bg-opacity-50" x-cloak="" x-show="showNew<%= "character" %>Form" @keydown.escape="showNew<%= "character" %>Form = false">
+  <div class="py-4 px-6 mx-auto w-2/3 text-left bg-white rounded shadow-lg" @click.away="showNew<%= "character" %>Form = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+    <div class="flex justify-between items-center">
+      <h5 class="mr-3 max-w-none text-black">New <%= "character" %></h5>
+      <button type="button" class="z-50 cursor-pointer" @click="showNew<%= "character" %>Form = false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div>
+      <%= form_for "new_character_#{order}", method: "post", url: "#" do |form| %> <%# url: "/#{model.pluralize}/create_from_document?document_id=#{document_id}&order=#{order}" %>
+        <div class="px-6 my-5">
+          <div class="pb-5">
+            <p class="font-semibold"><%= form.label :name %></p>
+            <p><%= form.text_field :name %></p>
+          </div>
+          <div class="pb-5">
+            <p class="font-semibold"><%= form.label :description %></p>
+            <p><%= form.rich_text_area :description, data: { controller: "mentions", "mentions-target": "field" } %></p>
+          </div>
+          <% [].each do |article_field| %> <%# @article_fields.where(model: "character").find_each %>
+            <div class="pb-5">
+              <p class="font-semibold"><%= form.label article_field.name %></p>
+              <p><%= form.text_field article_field.name, id: "#{model}_custom_field_values_#{article_field.id}", name: "#{model}[custom_field_values][#{article_field.id}]" %></p>
+            </div>
+          <% end %>
+          <div class="flex flex-row justify-between">
+            <%= form.submit "Save New character", class: "button" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

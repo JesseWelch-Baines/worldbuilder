@@ -3,7 +3,7 @@
     <%= render partial: "layouts/controls/new_article_menu", locals: { order: 0, paragraphs: paragraphs, articles: articles } %>
     <% document.article_instances.each_with_index do |article_instance, index| %>
       <% article = article_instance.article %>
-      <div @mouseover="hover_instances['hover_#{article_instance.id}'] = true" @mouseover.away="hover_instances['hover_#{article_instance.id}'] = false">
+      <div @mouseover="hover_instances['hover_<%= article_instance.id %>'] = true" @mouseover.away="hover_instances['hover_<%= article_instance.id %>'] = false">
         <div @click="form_instances['modal_edit_form_<%= article_instance.id %>'] = true" class="pl-12 text-lg <%= article.color %> font-semibold cursor-pointer"><%= article[:name] %></div>
         <div>
           <span x-show="hover_instances['hover_<%= article_instance.id %>']" class="flex absolute flex-col -mt-6 space-y-0 text-gray-400">
@@ -32,8 +32,8 @@
     <% end %>
 
     <div x-cloak="" x-show="showFooterNewParagraphForm" class="pb-5 ml-10">
-      <%= form_for "new_paragraph_#{document.article_instances.size + 1}", method: "post", url: create_from_document_paragraphs_path(document_id: document.id, order: document.article_instances.size + 1) do |form| %>
-        <%= render(Documents::ParagraphFieldComponent.new(form: form, article_instance_id: document.article_instances.size + 1)) %>
+      <%= form_for "new_paragraph_#{document.article_instances.size + 1}", method: "post", url: "#" do |form| %> <%# url: create_from_document_paragraphs_path(document_id: document.id, order: document.article_instances.size + 1) %>
+        <%= render Documents::ParagraphFieldComponent.new(form: form, article_instance_id: document.article_instances.size + 1) %>
         <%= form.submit class: "button", id: "submit_#{document.article_instances.size + 1}", style: "display: none;" %>
       <% end %>
     </div>
