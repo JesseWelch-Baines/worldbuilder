@@ -5,7 +5,7 @@
     <%= f.input :description %>
 
     <div class="flex flex-row justify-between">
-      <%= f.submit class: "button" %>
+      <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>
       <% if article.persisted? %>
         <%= link_to "Delete", article_category_article_path(article_category, article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       <% end %>

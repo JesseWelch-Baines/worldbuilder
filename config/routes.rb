@@ -13,8 +13,8 @@ Rails.application.routes.draw do
 
   resources :worlds
   resources :documents
-  resources :article_categories, only: [:index, :new, :create] do
-    resources :articles, only: [:index, :show, :new, :create, :edit]
+  resources :article_categories do
+    resources :articles
   end
 
   post '/set_current_world', to: 'application#set_current_world', as: :set_current_world

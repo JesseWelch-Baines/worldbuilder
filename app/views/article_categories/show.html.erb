@@ -1,0 +1,13 @@
+<div class="p-6 my-5 bg-white rounded-sm">
+  <p class="text-lg"><p>
+  <div class="px-6 my-5">
+    <div class="pb-5">
+      <p class="font-semibold">Name</p>
+      <p><%= @article_category.name %></p>
+    </div>
+  </div>
+</div>
+
+<div class="pt-5">
+  <%= link_to "Edit article category", edit_polymorphic_path(@article_category), class: "button" %>
+</div>

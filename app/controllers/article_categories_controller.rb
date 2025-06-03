@@ -1,6 +1,6 @@
 class ArticleCategoriesController < ApplicationController
   before_action :set_article_categories, only: [:index]
-  before_action :set_article_category, only: [:show]
+  before_action :set_article_category, only: [:show, :edit, :update, :destroy]
 
   def index; end
 
@@ -19,6 +19,27 @@ class ArticleCategoriesController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @article_category.update(article_category_params)
+        format.html { redirect_to article_categories_path(@article_category_category), notice: "#{@article_category.name} updated" }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def destroy
+    @article_category.destroy
+
+    respond_to do |format|
+      format.html { redirect_to article_categories_path(@article_category_category), notice: "#{@article_category.name} deleted" }
+      format.json { head :no_content }
     end
   end
 

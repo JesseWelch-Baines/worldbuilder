@@ -17,6 +17,9 @@
       <% @nav_article_categories.each do |nav_article_category| %>
         <%= link_to nav_article_category.name.pluralize, article_category_articles_path(nav_article_category), class: "px-2" %>
       <% end %>
+      <%= link_to article_categories_path, class: "px-2 pt-0.5" do %>
+        <i class="h-full fa-sm fas fa-fw fa-gear"></i>
+      <% end %>
       <%= link_to "+", new_article_category_path, class: "px-2" %>
     </div>
     <div x-data="{worldDropdown: false, formDisplay: false}">
