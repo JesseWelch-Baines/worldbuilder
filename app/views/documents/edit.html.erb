@@ -1,0 +1,6 @@
+<%= render partial: "layouts/title_panel", locals: { title: @document.name } %>
+
+<div class="p-6 my-5 bg-white rounded-sm">
+  <p class="text-lg">Edit</p>
+  <%= render partial: 'form', locals: { document: @document } %>
+</div>

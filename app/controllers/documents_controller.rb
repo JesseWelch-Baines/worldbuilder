@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show]
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
   before_action :set_paragraphs, only: [:show]
   before_action :set_articles, only: [:show]
 
@@ -19,11 +19,32 @@ class DocumentsController < ApplicationController
     @document = current_user.documents.new(document_params)
 
     if @document.save
-      redirect_to document_path(@document)
+      redirect_to documents_path
     else
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @document.update(document_params)
+      redirect_to documents_path
+    else
+      respond_to do |format|
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @document.destroy
+
+    respond_to do |format|
+      format.html { redirect_to documents_path, notice: "#{@document.name} deleted" }
+      format.json { head :no_content }
     end
   end
 
