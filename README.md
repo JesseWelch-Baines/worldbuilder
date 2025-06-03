@@ -31,3 +31,9 @@ sudo su - postgres
 
 # Postgresql console
 psql
+
+# Create database user
+CREATE ROLE worldbuilder WITH CREATEDB LOGIN PASSWORD 'x';
+
+# Grant superuser access
+ALTER ROLE worldbuilder WITH SUPERUSER;

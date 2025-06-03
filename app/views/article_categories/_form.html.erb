@@ -1,0 +1,13 @@
+<%= simple_form_for article_category do |f| %>
+  <div class="px-6 my-5">
+    <%= render partial: "layouts/notices/errors", locals: { record: article_category } %>
+    <%= f.input :name %>
+
+    <div class="flex flex-row justify-between">
+      <%= f.submit class: "button" %>
+      <% if article_category.persisted? %>
+        <%= link_to "Delete", article_category_path(article_category), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this article_category." } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,6 +1,13 @@
 <div class="flex flex-row justify-between rounded-sm hover:bg-gray-200">
-  <%= link_to url_for(@item), class: "w-full p-3" do %>
-    <p><%= @item.name.present? ? @item.name : @item.description.to_plain_text.truncate(75, separator: ' ') %></p>
+
+  <% if @links[:show_path].present? %>
+    <%= link_to @links[:show_path], class: "w-full p-3" do %>
+      <p><%= @item.name.presence || @item.description.to_plain_text.truncate(75, separator: " ") %></p>
+    <% end %>
+  <% else %>
+    <div class="p-3 w-full">
+      <p><%= @item.name.presence || @item.description.to_plain_text.truncate(75, separator: " ") %></p>
+    </div>
   <% end %>
 
   <% if @links[:move_up_path].present? && @index != 0 %>
@@ -16,12 +23,14 @@
   <% end %>
 
   <% if @links[:change_to_path].present? %>
-    <%= link_to @links[:change_to_path], data: {turbo_method: :post}, class: "text-lg hover:text-blue-500 text-center px-2" do %>
+    <%= link_to @links[:change_to_path], data: { turbo_method: :post }, class: "text-lg hover:text-blue-500 text-center px-2" do %>
       <i class="pt-4 h-full fas fa-fw fa-door-open"></i>
     <% end %>
   <% end %>
 
-  <%= link_to edit_polymorphic_path(@item), class: "text-lg hover:text-blue-500 text-center px-2" do %>
-    <i class="pt-4 h-full fas fa-fw fa-edit"></i>
+  <% if @links[:edit_path] %>
+    <%= link_to @links[:edit_path], class: "text-lg hover:text-blue-500 text-center px-2" do %>
+      <i class="pt-4 h-full fas fa-fw fa-edit"></i>
+    <% end %>
   <% end %>
 </div>

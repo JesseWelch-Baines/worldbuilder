@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   resources :worlds
-  resources :documents, only: [:new, :create, :show, :edit]
+  resources :documents, only: [:index, :new, :create, :show, :edit]
+  resources :article_categories, only: [:index, :new, :create] do
+    resources :articles, only: [:index, :show, :new, :create, :edit]
+  end
 
   post '/set_current_world', to: 'application#set_current_world', as: :set_current_world
 end

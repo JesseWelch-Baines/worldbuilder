@@ -1,0 +1,6 @@
+<%= render partial: "layouts/title_panel", locals: { title: "New Article category" } %>
+
+<div class="p-6 my-5 bg-white rounded-sm">
+  <p class="text-lg">New</p>
+  <%= render partial: "form", locals: { article_category: @article_category } %>
+</div>

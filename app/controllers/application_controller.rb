@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :check_or_create_world
   before_action :set_worlds
+  before_action :set_nav_article_categories
   # before_action :check_access, only: :show
 
   def main
@@ -13,6 +14,16 @@ class ApplicationController < ActionController::Base
     @records += current_user.articles.where(world_id: Current.world.id)
     @records.sort_by!(&:updated_at).reject! { |r| r.name.blank? }
   end
+
+  def set_current_world
+    session[:world_id] = params[:world_id]
+
+    callback = params[:callback] == "/worlds" ? root_path : params[:callback]
+
+    redirect_to callback
+  end
+
+  private
 
   def check_or_create_world
     return unless current_user.present?
@@ -30,17 +41,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_current_world
-    session[:world_id] = params[:world_id]
-
-    callback = params[:callback] == "/worlds" ? root_path : params[:callback]
-
-    redirect_to callback
-  end
-
-  private
-
   def set_worlds
     @worlds = current_user.worlds.where.not(id: Current.world.id).order(:created_at) if current_user.present?
+  end
+
+  def set_nav_article_categories
+    @nav_article_categories = current_user.article_categories.select(&:persisted?) if current_user.present?
   end
 end

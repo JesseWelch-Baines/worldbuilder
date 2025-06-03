@@ -3,6 +3,10 @@ class DocumentsController < ApplicationController
   before_action :set_paragraphs, only: [:show]
   before_action :set_articles, only: [:show]
 
+  def index
+    @documents = current_user.documents.includes(:article_instances).where(world_id: Current.world.id)
+  end
+
   def show
     # @article_fields = current_user.article_fields.where(world_id: Current.world.id)
   end
