@@ -11,6 +11,10 @@ class WorldsController < ApplicationController
     @world = current_user.worlds.new
   end
 
+  def edit
+    @world = current_user.worlds.find(params[:id])
+  end
+
   def create
     world = current_user.worlds.new(world_params)
 
@@ -26,10 +30,6 @@ class WorldsController < ApplicationController
         end
       end
     end
-  end
-
-  def edit
-    @world = current_user.worlds.find(params[:id])
   end
 
   def update

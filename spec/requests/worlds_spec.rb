@@ -1,5 +1,3 @@
 require "rails_helper"
 
-RSpec.describe "worlds", type: :request do
-
-end
+RSpec.describe "worlds", type: :request do; end

@@ -1,7 +1,7 @@
 class Paragraph < ApplicationRecord
   belongs_to :user
   belongs_to :world
-  has_many :article_instances
+  has_many :article_instances, dependent: :destroy, inverse_of: :paragraph
   has_rich_text :description
 
   validates :description, presence: true

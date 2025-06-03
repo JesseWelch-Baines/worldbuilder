@@ -7,11 +7,11 @@ class User < ApplicationRecord
     :save_copy_of_paragraphs,
   ]
 
-  has_many :worlds
-  has_many :article_categories
+  has_many :worlds, dependent: :destroy, inverse_of: :user
+  has_many :article_categories, dependent: :destroy, inverse_of: :user
 
-  has_many :documents
-  has_many :paragraphs
-  has_many :articles
+  has_many :documents, dependent: :destroy, inverse_of: :user
+  has_many :paragraphs, dependent: :destroy, inverse_of: :user
+  has_many :articles, dependent: :destroy, inverse_of: :user
   # has_many :article_fields
 end

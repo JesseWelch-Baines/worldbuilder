@@ -26,14 +26,12 @@ class ApplicationController < ActionController::Base
   private
 
   def check_or_create_world
-    return unless current_user.present?
+    return if current_user.blank?
 
     world = if session[:world_id].present?
               session_world = World.find_by(id: session[:world_id])
               if session_world&.user_id == current_user.id
                 session_world
-              else
-                nil
               end
             end
 

@@ -15,6 +15,8 @@ class DocumentsController < ApplicationController
     @document = current_user.documents.new
   end
 
+  def edit; end
+
   def create
     @document = current_user.documents.new(document_params)
 
@@ -26,8 +28,6 @@ class DocumentsController < ApplicationController
       end
     end
   end
-
-  def edit; end
 
   def update
     if @document.update(document_params)

@@ -10,6 +10,8 @@ class ArticleCategoriesController < ApplicationController
     @article_category = current_user.article_categories.new
   end
 
+  def edit; end
+
   def create
     @article_category = current_user.article_categories.new(article_category_params)
 
@@ -22,8 +24,6 @@ class ArticleCategoriesController < ApplicationController
     end
   end
 
-  def edit; end
-
   def update
     respond_to do |format|
       if @article_category.update(article_category_params)
@@ -33,7 +33,7 @@ class ArticleCategoriesController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @article_category.destroy
 

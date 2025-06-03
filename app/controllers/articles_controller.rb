@@ -11,6 +11,8 @@ class ArticlesController < ApplicationController
     @article = current_user.articles.new
   end
 
+  def edit; end
+
   def create
     @article = current_user.articles.new(article_params.merge(category: @article_category))
 
@@ -22,8 +24,6 @@ class ArticlesController < ApplicationController
       end
     end
   end
-
-  def edit; end
 
   def update
     respond_to do |format|
