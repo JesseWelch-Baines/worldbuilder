@@ -28,17 +28,19 @@ class ApplicationController < ActionController::Base
   def check_or_create_world
     return unless current_user.present?
 
-    if session[:world_id].present?
-      session_world = World.find_by(id: session[:world_id])
+    world = if session[:world_id].present?
+              session_world = World.find_by(id: session[:world_id])
+              if session_world&.user_id == current_user.id
+                session_world
+              else
+                nil
+              end
+            end
 
-      Current.world = if session_world.present?
-                        session_world.user_id == current_user.id ? session_world : current_user.worlds.create(name: "My World")
-                      else
-                        current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: "My World")
-                      end
-    else
-      Current.world = current_user.worlds.any? ? current_user.worlds.order(:created_at).first : current_user.worlds.create(name: "My World")
-    end
+    world ||= current_user.worlds.order(:created_at).first
+    world ||= current_user.worlds.create(name: "My World")
+
+    Current.world = world
   end
 
   def set_worlds
