@@ -2,6 +2,7 @@ class Article < ApplicationRecord
   include ActionText::Attachable
 
   belongs_to :world
+  belongs_to :user, inverse_of: :articles
   belongs_to :category, class_name: "ArticleCategory", foreign_key: "article_category_id", inverse_of: :articles
   has_many :article_instances, dependent: :restrict_with_error, inverse_of: :article
   has_rich_text :description

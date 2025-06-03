@@ -29,8 +29,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    @current_user = create(:user)
-    sign_in @current_user
+    Current.user = create(:user)
+    sign_in Current.user
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

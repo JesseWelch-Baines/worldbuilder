@@ -12,8 +12,6 @@
   </div>
 </div>
 
-<% puts @article_category.inspect %>
-<% puts @article.inspect %>
 <div class="pt-5">
   <%= link_to "Edit #{@article_category.name}", edit_polymorphic_path([@article_category, @article]), class: "button" %>
 </div>

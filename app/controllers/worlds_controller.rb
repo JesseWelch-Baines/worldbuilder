@@ -1,19 +1,17 @@
 class WorldsController < ApplicationController
+  before_action :set_world, only: [:show, :edit, :update, :destroy]
+
   def index
     @worlds = current_user.worlds
   end
 
-  def show
-    @world = current_user.worlds.find(params[:id])
-  end
+  def show; end
 
   def new
     @world = current_user.worlds.new
   end
 
-  def edit
-    @world = current_user.worlds.find(params[:id])
-  end
+  def edit; end
 
   def create
     world = current_user.worlds.new(world_params)
@@ -33,8 +31,6 @@ class WorldsController < ApplicationController
   end
 
   def update
-    @world = current_user.worlds.find(params[:id])
-
     if @world.update(world_params)
       redirect_to worlds_path
     else
@@ -45,14 +41,21 @@ class WorldsController < ApplicationController
   end
 
   def destroy
-    @world = World.find(params[:id]).destroy
+    @world.destroy
 
-    redirect_to worlds_path
+    respond_to do |format|
+      format.html { redirect_to worlds_path, notice: "#{@world.name} deleted" }
+      format.json { head :no_content }
+    end
   end
 
   private
 
   def world_params
     params.require(:world).permit(:name)
+  end
+
+  def set_world
+    @world = current_user.worlds.find(params[:id])
   end
 end

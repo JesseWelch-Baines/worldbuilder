@@ -17,7 +17,7 @@ class ArticleCategoriesController < ApplicationController
 
     respond_to do |format|
       if @article_category.save
-        format.html { redirect_to article_categories_path(@article_category), notice: "#{@article_category.name} created" }
+        format.html { redirect_to article_categories_path, notice: "#{@article_category.name} created" }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -27,7 +27,7 @@ class ArticleCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @article_category.update(article_category_params)
-        format.html { redirect_to article_categories_path(@article_category_category), notice: "#{@article_category.name} updated" }
+        format.html { redirect_to article_categories_path, notice: "#{@article_category.name} updated" }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -38,7 +38,7 @@ class ArticleCategoriesController < ApplicationController
     @article_category.destroy
 
     respond_to do |format|
-      format.html { redirect_to article_categories_path(@article_category_category), notice: "#{@article_category.name} deleted" }
+      format.html { redirect_to article_categories_path, notice: "#{@article_category.name} deleted" }
       format.json { head :no_content }
     end
   end

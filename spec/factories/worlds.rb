@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :article_category do
+  factory :world do
     user { Current.user || association(:user) }
-    name { "Character" }
+    name { "Sample World" }
   end
 end
