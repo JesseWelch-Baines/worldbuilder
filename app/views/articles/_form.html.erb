@@ -1,14 +1,11 @@
 <%= simple_form_for [article_category, article] do |f| %>
-  <div class="px-6 my-5">
-    <%= render partial: "layouts/notices/errors", locals: { record: article } %>
-    <%= f.input :name %>
-    <%= f.rich_textarea :description, data: { controller: "mentions", mentions_target: "field" } %>
+  <%= f.input :name %>
+  <%= f.rich_textarea :description, data: { controller: "mentions", mentions_target: "field" } %>
 
-    <div class="flex flex-row justify-between">
-      <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>
-      <% if article.persisted? %>
-        <%= link_to "Delete", article_category_article_path(article_category, article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-      <% end %>
-    </div>
+  <div class="flex flex-row justify-between">
+    <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>
+    <% if article.persisted? %>
+      <%= link_to "Delete", article_category_article_path(article_category, article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
   </div>
 <% end %>

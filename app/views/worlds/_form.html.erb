@@ -1,13 +1,10 @@
 <%= simple_form_for world do |f| %>
-  <div class="px-6 my-5">
-    <%= render partial: "layouts/notices/errors", locals: { record: world } %>
-    <%= f.input :name %>
+  <%= f.input :name %>
 
-    <div class="flex flex-row justify-between">
-      <%= f.submit class: "button" %>
-      <% if world.persisted? %>
-        <%= link_to "Delete", world_path(world), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this world." } %>
-      <% end %>
-    </div>
+  <div class="flex flex-row justify-between">
+    <%= f.submit class: "button" %>
+    <% if world.persisted? %>
+      <%= link_to "Delete", world_path(world), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this world." } %>
+    <% end %>
   </div>
 <% end %>
