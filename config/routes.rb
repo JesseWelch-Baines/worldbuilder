@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     resources :articles
   end
 
+  resources :mentions, only: [:index]
+
   post '/set_current_world', to: 'application#set_current_world', as: :set_current_world
 end

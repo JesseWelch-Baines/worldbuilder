@@ -2,7 +2,7 @@
   <div class="px-6 my-5">
     <%= render partial: "layouts/notices/errors", locals: { record: article } %>
     <%= f.input :name %>
-    <%= f.input :description %>
+    <%= f.rich_textarea :description, data: { controller: "mentions", mentions_target: "field" } %>
 
     <div class="flex flex-row justify-between">
       <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>

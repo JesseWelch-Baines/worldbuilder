@@ -34,7 +34,7 @@ RSpec.describe "article_categories", type: :request do
   it "creates a new article category" do
     post article_categories_path, params: { article_category: { name: "New Category" } }
 
-    expect(response).to redirect_to(article_categories_path)
+    expect(response).to redirect_to(article_category_articles_path(article_category_id: ArticleCategory.last.id))
     follow_redirect!
 
     expect(response.body).to include("New Category")
