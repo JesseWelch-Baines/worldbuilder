@@ -17,7 +17,7 @@ class ArticleCategoriesController < ApplicationController
 
     respond_to do |format|
       if @article_category.save
-        format.html { redirect_to article_categories_path, notice: "#{@article_category.name} created" }
+        format.html { redirect_to article_category_articles_path(@article_category), notice: "#{@article_category.name} created" }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
