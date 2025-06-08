@@ -1,5 +1,6 @@
-<%= simple_form_for article_category do |f| %>
+<%= simple_form_for article_category, html: {class: "px-6 my-5"} do |f| %>
   <%= f.input :name %>
+  <%= f.input :colour, as: :color, input_html: {class: "px-1 py-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"} %>
 
   <div class="flex flex-row justify-between">
     <%= f.submit class: "button" %>

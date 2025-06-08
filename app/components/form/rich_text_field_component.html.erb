@@ -1,0 +1,5 @@
+  <div class="pb-4 text">
+    <%= @f.label @field_name %>
+    <%= @f.rich_textarea @field_name, data: { controller: "mentions", mentions_target: "field" } %>
+    <span class="-mt-10 text-sm text-gray-400 text-opacity-60">Use @ to tag an element.</span>
+  </div>

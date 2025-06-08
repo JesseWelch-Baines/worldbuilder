@@ -1,6 +1,6 @@
-<%= simple_form_for [article_category, article] do |f| %>
+<%= simple_form_for [article_category, article], html: {class: "px-6 my-5"} do |f| %>
   <%= f.input :name %>
-  <%= f.rich_textarea :description, data: { controller: "mentions", mentions_target: "field" } %>
+  <%= render Form::RichTextFieldComponent.new(form: f, field_name: :description) %>
 
   <div class="flex flex-row justify-between">
     <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>

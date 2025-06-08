@@ -3,7 +3,7 @@
     <% @records.each do |record| %>
       <%= link_to polymorphic_show(record) do %>
         <div class="p-4 mb-6 bg-gray-100 rounded-lg break-inside">
-          <div class="font-semibold #{record.color}"><%= record.name %></div>
+          <div class="font-semibold" style="color: <%= record.category.colour %>"><%= record.name %></div>
           <div><%== strip_links(record.description) %></div>
         </div>
       <% end %>

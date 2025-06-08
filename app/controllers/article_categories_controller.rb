@@ -46,7 +46,7 @@ class ArticleCategoriesController < ApplicationController
   private
 
   def article_category_params
-    params.require(:article_category).permit(:name)
+    params.require(:article_category).permit(:name, :colour)
   end
 
   def set_article_categories
