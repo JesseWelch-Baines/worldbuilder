@@ -6,11 +6,11 @@ module ApplicationHelper
   def article_colour(article)
     case article.class.to_s
     when "Document", "Paragraph"
-      article.colour || "black"
+      "#404040"
     when "Article"
-      article.category.colour || "black"
+      article.category.colour || "#404040"
     else
-      "black"
+      "#404040"
     end
   end
 end

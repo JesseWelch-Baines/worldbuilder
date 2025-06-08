@@ -1,14 +1,10 @@
-<%= form_with model: document, local: true do |form| %>
-  <div class="px-6 my-5">
-    <%= render partial: "layouts/notices/errors", locals: { record: document } %>
-    <div class="pb-5">
-      <p class="font-semibold"><%= form.label :name %></p>
-      <p><%= form.text_field :name %></p>
-    <div class="flex flex-row justify-between">
-      <%= form.submit class: "button" %>
-      <% if @document.persisted? %>
-        <%= link_to "Delete", document_path(@document), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-      <% end %>
-    </div>
+<%= simple_form_for document, html: {class: "px-6 my-5"} do |f| %>
+  <%= f.input :name %>
+
+  <div class="flex flex-row justify-between">
+    <%= f.submit class: "button" %>
+    <% if document.persisted? %>
+      <%= link_to "Delete", documents_path(document), class: "text-red-500", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
   </div>
 <% end %>
