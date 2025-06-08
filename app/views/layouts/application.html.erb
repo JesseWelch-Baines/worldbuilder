@@ -25,14 +25,12 @@
     <script src="https://kit.fontawesome.com/75ddb26609.js" crossorigin="anonymous"></script>
   </head>
 
-  <body class="bg-gray font-hahmlet">
-    <main class="container flex px-5 mx-auto mt-28">
-      <div class="py-24 w-full">
-        <%= render 'layouts/nav' if current_user %>
-        <%= render 'layouts/notices/notices' %>
-        <div class="p-5 bg-gray-200">
-          <%= yield %>
-        </div>
+  <body class="bg-gray-200 font-hahmlet">
+    <main class="py-24 w-full">
+      <%= render 'layouts/nav' if current_user %>
+      <%= render 'layouts/notices/notices' %>
+      <div class="p-5 bg-gray-200">
+        <%= yield %>
       </div>
     </main>
   </body>
