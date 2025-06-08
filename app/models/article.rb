@@ -10,6 +10,8 @@ class Article < ApplicationRecord
   before_validation :set_world
   before_destroy :destroy_instances
 
+  validates :name, presence: true
+
   attr_accessor :document_id
 
   def occurrences

@@ -22,7 +22,7 @@ RSpec.describe "articles", type: :request do
     get new_article_category_article_path(article_category)
 
     expect(response).to have_http_status(:ok)
-    expect(response.body).to include("New Article")
+    expect(response.body).to include("New #{article_category.name}")
   end
 
   it "renders the edit page" do

@@ -5,7 +5,7 @@
   <div class="flex flex-row justify-between">
     <%= f.submit class: "button" %>
     <% if article_category.persisted? %>
-      <%= link_to "Delete", article_category_path(article_category), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this article_category." } %>
+      <%= link_to "Delete", article_category_path(article_category), class: "text-red-500", data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete all articles in this article_category." } %>
     <% end %>
   </div>
 <% end %>

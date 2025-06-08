@@ -1,6 +1,6 @@
 <nav class="fixed inset-x-0 top-0 z-10 h-24 text-gray-200 bg-gray-500">
   <div class="flex relative flex-row justify-center h-12">
-    <div class="flex absolute top-0 left-0 flex-row p-3 text-xs">alpha v0.2.1</div>
+    <div class="flex absolute top-0 left-0 flex-row p-3 text-xs">alpha v0.3.0</div>
     <p class="absolute top-4">
       <%= link_to root_path do %>
         <span><%= image_tag "/logobanner.png", size: "320x1600" %></span>
@@ -22,14 +22,14 @@
       <% end %>
       <%= link_to "+", new_article_category_path, class: "px-2" %>
     </div>
-    <div x-data="{worldDropdown: false, formDisplay: false}">
-      <div @click="worldDropdown = true; formDisplay = false" class="flex flex-row justify-between p-3 space-x-2 w-64 bg-gray-700 rounded-sm cursor-pointer select-none">
+    <div data-controller="show-hide">
+      <div class="flex flex-row justify-between p-3 space-x-2 w-64 bg-gray-700 rounded-sm cursor-pointer select-none" data-show-hide-target="trigger">
         <p class="w-56"><%= Current.world.name %></p>
         <p class="flex flex-row justify-center w-8">
           <i class="mt-1 fas fa-caret-down"></i>
         </p>
       </div>
-      <div x-cloak x-show="worldDropdown" class="overflow-hidden absolute w-64 rounded-sm">
+      <div data-show-hide-target="subject" class="overflow-hidden absolute w-64 rounded-sm" hidden>
         <% @worlds.each do |world| %>
           <%= link_to set_current_world_path(world_id: world.id, callback: request.path), data: { turbo_method: :post } do %>
             <div class="p-3 text-gray-100 bg-gray-600 hover:bg-gray-400"><%= world.name %></div>
@@ -37,7 +37,7 @@
         <% end %>
         <div>
           <%= form_for :world, method: "post", url: worlds_path(callback: request.path) do |form| %>
-            <%= form.text_field :name, placeholder: "Name" %>
+            <%= form.text_field :name, placeholder: "Name", class: "w-full" %>
             <%= form.submit class: "button", style: "display: none;", id: "new_world_submit_btn" %>
           <% end %>
         </div>
