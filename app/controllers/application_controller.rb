@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :check_or_create_world
   before_action :set_worlds
   before_action :set_nav_article_categories
-  # before_action :check_access, only: :show
 
   def main
     @records = current_user.documents.includes(:article_instances).where(world_id: Current.world.id)
