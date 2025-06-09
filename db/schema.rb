@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_08_222343) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_09_133127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -64,9 +64,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_222343) do
     t.index ["user_id"], name: "index_article_categories_on_user_id"
   end
 
-  create_table "article_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "article_field_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "world_id", null: false
+    t.uuid "article_id", null: false
+    t.uuid "article_field_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_field_id"], name: "index_article_field_values_on_article_field_id"
+    t.index ["article_id"], name: "index_article_field_values_on_article_id"
+    t.index ["user_id"], name: "index_article_field_values_on_user_id"
+    t.index ["world_id"], name: "index_article_field_values_on_world_id"
+  end
+
+  create_table "article_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
     t.uuid "article_category_id", null: false
     t.string "name", null: false
     t.integer "field_type", default: 0, null: false
@@ -77,7 +90,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_222343) do
     t.index ["article_category_id"], name: "index_article_fields_on_article_category_id"
     t.index ["status"], name: "index_article_fields_on_status"
     t.index ["user_id"], name: "index_article_fields_on_user_id"
-    t.index ["world_id"], name: "index_article_fields_on_world_id"
   end
 
   create_table "article_instances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
