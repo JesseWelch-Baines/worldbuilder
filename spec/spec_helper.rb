@@ -28,7 +28,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
-  config.before(:each) do
+  config.before(:each, :type => lambda {|v| v == :request}) do
     Current.user = create(:user)
     sign_in Current.user
   end
