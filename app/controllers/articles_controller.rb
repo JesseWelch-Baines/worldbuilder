@@ -55,10 +55,10 @@ class ArticlesController < ApplicationController
   end
 
   def set_articles
-    @articles = current_user.articles.where(article_category_id: @article_category.id)
+    @articles = @article_category.articles.where(article_category_id: @article_category.id)
   end
 
   def set_article
-    @article = current_user.articles.find(params[:id])
+    @article = @article_category.articles.find(params[:id])
   end
 end

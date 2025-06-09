@@ -12,7 +12,7 @@ class Article < ApplicationRecord
 
   validates :name, presence: true
 
-  attr_accessor :document_id
+  attr_accessor :new_article_field_name, :document_id
 
   def occurrences
     article_instances.size

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "article_fields" do %>
+  <% article_fields.each do |article_field| %>
+    <%= text_field article, article_field.name %>
+  <% end %>
+<% end %>

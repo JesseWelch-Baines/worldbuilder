@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   resources :worlds
   resources :documents
   resources :article_categories do
-    resources :articles
+    resources :articles do
+      scope module: "articles" do
+        resources :article_fields, only: [:new, :create]
+      end
+    end
   end
 
   resources :mentions, only: [:index]

@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modals" data-modals-target="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <%= simple_form_for [article_category, article, article_field] do |f| %>
+        <h2 class="text-xl font-semibold mb-4">New <%= article_category.name %> field</h2>
+        <%= f.input :name %>
+        <div class="flex justify-between">
+          <%= button_to "Create", "#", class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600", data: { modals_target: "submitButton" } %>
+          <%= button_to "Close", "#", class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600", data: { modals_target: "closeButton" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

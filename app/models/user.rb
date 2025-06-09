@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :worlds, dependent: :destroy, inverse_of: :user
   has_many :article_categories, dependent: :destroy, inverse_of: :user
+  has_many :article_fields, dependent: :destroy, inverse_of: :user
 
   has_many :documents, dependent: :destroy, inverse_of: :user
   has_many :paragraphs, dependent: :destroy, inverse_of: :user
