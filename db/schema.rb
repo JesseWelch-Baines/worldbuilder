@@ -69,7 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_09_133127) do
     t.uuid "world_id", null: false
     t.uuid "article_id", null: false
     t.uuid "article_field_id", null: false
-    t.string "value", null: false
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_field_id"], name: "index_article_field_values_on_article_field_id"

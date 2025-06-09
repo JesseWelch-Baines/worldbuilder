@@ -5,7 +5,7 @@ class CreateArticleFieldValues < ActiveRecord::Migration[8.0]
       t.references :world, null: false, type: :uuid
       t.references :article, null: false, type: :uuid
       t.references :article_field, null: false, type: :uuid
-      t.string :value, null: false
+      t.string :value
 
       t.timestamps
     end

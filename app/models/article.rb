@@ -5,6 +5,8 @@ class Article < ApplicationRecord
   belongs_to :user, inverse_of: :articles
   belongs_to :category, class_name: "ArticleCategory", foreign_key: "article_category_id", inverse_of: :articles
   has_many :article_instances, dependent: :restrict_with_error, inverse_of: :article
+  has_many :article_field_values, dependent: :destroy, inverse_of: :article
+
   has_rich_text :description
 
   before_validation :set_world
@@ -12,7 +14,9 @@ class Article < ApplicationRecord
 
   validates :name, presence: true
 
-  attr_accessor :new_article_field_name, :document_id
+  attr_accessor :document_id
+
+  accepts_nested_attributes_for :article_field_values, allow_destroy: true
 
   def occurrences
     article_instances.size

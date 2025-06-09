@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :authenticate_user!
+  before_action :set_current_user
   before_action :check_or_create_world
   before_action :set_worlds
   before_action :set_nav_article_categories
@@ -24,6 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_current_user
+    Current.user = current_user if current_user.present?
+  end
 
   def check_or_create_world
     return if current_user.blank?

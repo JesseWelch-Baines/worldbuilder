@@ -2,9 +2,10 @@
   <%= f.input :name %>
   <%= render Form::RichTextFieldComponent.new(form: f, field_name: :description) %>
 
+  <%= render partial: "article_fields/index", locals: { article: article, article_fields: article_category.article_fields } %>
+
   <% if article.persisted? #TODO: Refactor to allow new articles to add fields %>
-    <%= link_to "New field", new_article_category_article_article_field_path(article_category, article), data: { turbo_frame: "modal" } %>
-    <%= render partial: "article_fields/index", locals: { article_category: article_category, article: article, article_fields: article_category.article_fields } %>
+    <%= render NewListItemComponent.new(path: new_article_category_article_article_field_path(article_category, article), data: { turbo_frame: "modal"} ) %>
   <% end %>
 
   <div class="flex flex-row justify-between">

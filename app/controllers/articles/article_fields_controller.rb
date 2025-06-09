@@ -16,13 +16,15 @@ class Articles::ArticleFieldsController < ApplicationController
     @article_field = current_user.article_fields.new(article_field_params.merge(article_category: @article_category))
 
     if @article_field.save
+      @article.article_field_values.new(user: @article.user, world: @article.world, article_field: @article_field)
+
       render turbo_stream: turbo_stream.replace(
         "article_fields",
         partial: "article_fields/index",
-        locals: { article_category: @article_category, article: @article, article_fields: @article_category.article_fields }
+        locals: { article: @article, article_fields: @article_category.article_fields }
       )
     else
-      # Render the form with errors
+      # TODO: Render the form with errors
     end
   end
 
