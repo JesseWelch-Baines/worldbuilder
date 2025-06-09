@@ -51,7 +51,7 @@ class ArticlesController < ApplicationController
   end
 
   def set_article_category
-    @article_category = current_user.article_categories.find(params[:article_category_id])
+    @article_category = current_user.article_categories.includes(article_fields: :article_field_values).find(params[:article_category_id])
   end
 
   def set_articles

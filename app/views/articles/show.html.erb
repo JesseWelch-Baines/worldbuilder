@@ -9,6 +9,12 @@
       <p class="font-semibold">Description</p>
       <p><%== @article.description %></p>
     </div>
+    <% @article_category.article_fields.each do |article_field| %>
+      <div class="pb-5">
+        <p class="font-semibold"><%= article_field.name %></p>
+        <p><%= article_field.article_field_value(@article.id)&.value || "-" %></p>
+      </div>
+    <% end %>
   </div>
 </div>
 

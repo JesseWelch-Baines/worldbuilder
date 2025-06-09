@@ -24,7 +24,11 @@ class Articles::ArticleFieldsController < ApplicationController
         locals: { article: @article, article_fields: @article_category.article_fields }
       )
     else
-      # TODO: Render the form with errors
+      render turbo_stream: turbo_stream.replace(
+        "modal",
+        partial: "article_fields/new",
+        locals: { article_category: @article_category, article: @article, article_field: @article_field }
+      )
     end
   end
 
