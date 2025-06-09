@@ -37,7 +37,7 @@
         <% end %>
         <div>
           <%= form_for :world, method: "post", url: worlds_path(callback: request.path) do |form| %>
-            <%= form.text_field :name, placeholder: "Name", class: "w-full" %>
+            <%= form.text_field :name, placeholder: "Name", class: "w-full text-gray-700" %>
             <%= form.submit class: "button", style: "display: none;", id: "new_world_submit_btn" %>
           <% end %>
         </div>
