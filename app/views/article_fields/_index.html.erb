@@ -1,10 +1,10 @@
 <div id="article_fields">
   <% article_fields.each_with_index do |article_field, i| %>
-    <%= hidden_field_tag "article[article_field_values_attributes][#{i}][id]", article_field.article_field_value(article.id).id, id: "article_article_field_values_attributes_#{i}_id" %>
+    <%= hidden_field_tag "article[article_field_values_attributes][#{i}][id]", article_field.article_field_value(article.id)&.id, id: "article_article_field_values_attributes_#{i}_id" %>
     <%= hidden_field_tag "article[article_field_values_attributes][#{i}][article_field_id]", article_field.id, id: "article_article_field_values_attributes_#{i}_article_field_id" %>
     <div class="pb-4 string required article_article_field_values_attributes_<%= i %>_value">
       <label class="block string required text-sm font-medium text-gray-600" for="article_article_field_values_attributes_<%= i %>_value"><%= article_field.name %></label>
-      <input class="shadow appearance-none border border-gray-300 rounded py-2 px-3 bg-white focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-700 leading-6 transition-colors duration-200 ease-in-out border-green-400 string required" type="text" value="<%= article_field.article_field_value(article.id).value %>" name="article[article_field_values_attributes][<%= i %>][value]" id="article_article_field_values_attributes_<%= i %>_value" />
+      <input class="shadow appearance-none border border-gray-300 rounded py-2 px-3 bg-white focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-700 leading-6 transition-colors duration-200 ease-in-out border-green-400 string required" type="text" value="<%= article_field.article_field_value(article.id)&.value %>" name="article[article_field_values_attributes][<%= i %>][value]" id="article_article_field_values_attributes_<%= i %>_value" />
     </div>
   <% end %>
 </div>
