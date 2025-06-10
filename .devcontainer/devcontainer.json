@@ -9,12 +9,16 @@
 		"ghcr.io/itsmechlark/features/postgresql:1": {}
 	},
 	"forwardPorts": [
-		5432
+		5432,
+		1080
 	],
 	"portsAttributes": {
 		"5432": {
 			"label": "PostgreSQL"
 		},
+		"1080": {
+			"label": "Mailcatcher"
+		}
 	},
 	"customizations": {
 		"vscode": {
