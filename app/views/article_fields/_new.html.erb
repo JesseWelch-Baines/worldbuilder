@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "modal" do %>
   <div data-controller="modals" data-modals-target="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-      <%= simple_form_for [article_category, article, article_field] do |f| %>
+      <%= simple_form_for [article_category, article_field] do |f| %>
         <h2 class="text-xl font-semibold mb-4">New <%= article_category.name %> field</h2>
         <%= f.input :name %>
         <div class="flex justify-between">

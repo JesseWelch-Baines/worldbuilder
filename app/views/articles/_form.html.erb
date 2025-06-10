@@ -3,10 +3,7 @@
   <%= render Form::RichTextFieldComponent.new(form: f, field_name: :description) %>
 
   <%= render partial: "article_fields/index", locals: { article: article, article_fields: article_category.article_fields } %>
-
-  <% if article.persisted? #TODO: Refactor to allow new articles to add fields %>
-    <%= render NewListItemComponent.new(path: new_article_category_article_article_field_path(article_category, article), data: { turbo_frame: "modal"} ) %>
-  <% end %>
+  <%= render NewListItemComponent.new(path: new_article_category_article_field_path(article_category), data: { turbo_frame: "modal"} ) %>
 
   <div class="flex flex-row justify-between">
     <%= f.submit article.persisted? ? "Update #{article_category.name}" : "Create #{article_category.name}", class: "button" %>

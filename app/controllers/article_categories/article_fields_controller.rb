@@ -1,6 +1,5 @@
-class Articles::ArticleFieldsController < ApplicationController
+class ArticleCategories::ArticleFieldsController < ApplicationController
   before_action :set_article_category, only: [:new, :create]
-  before_action :set_article, only: [:new, :create]
 
   def new
     @article_field = @article_category.article_fields.new
@@ -8,26 +7,25 @@ class Articles::ArticleFieldsController < ApplicationController
     render turbo_stream: turbo_stream.replace(
       "modal",
       partial: "article_fields/new",
-      locals: { article_category: @article_category, article: @article, article_field: @article_field }
+      locals: { article_category: @article_category, article_field: @article_field }
     )
   end
 
   def create
     @article_field = current_user.article_fields.new(article_field_params.merge(article_category: @article_category))
+    index = @article_category.article_fields.count
 
     if @article_field.save
-      @article.article_field_values.new(user: @article.user, world: @article.world, article_field: @article_field)
-
-      render turbo_stream: turbo_stream.replace(
+      render turbo_stream: turbo_stream.append(
         "article_fields",
-        partial: "article_fields/index",
-        locals: { article: @article, article_fields: @article_category.article_fields }
+        partial: "article_fields/article_field",
+        locals: { article_field: @article_field, index: index }
       )
     else
       render turbo_stream: turbo_stream.replace(
         "modal",
         partial: "article_fields/new",
-        locals: { article_category: @article_category, article: @article, article_field: @article_field }
+        locals: { article_category: @article_category, article_field: @article_field }
       )
     end
   end
@@ -39,7 +37,7 @@ class Articles::ArticleFieldsController < ApplicationController
   end
 
   def set_article_category
-    @article_category = current_user.article_categories.find(params[:article_category_id])
+    @article_category = current_user.article_categories.includes(:article_fields).find(params[:article_category_id])
   end
 
   def set_article
