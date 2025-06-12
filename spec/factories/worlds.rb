@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :world do
-    user { Current.user || association(:user) }
+    user { User.find_by(superuser: true) || association(:user) }
     name { "Sample World" }
   end
 end

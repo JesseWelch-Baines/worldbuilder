@@ -29,8 +29,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :type => lambda {|v| v == :request}) do
-    Current.user = create(:user)
-    sign_in Current.user
+    sign_in create(:user, superuser: true)
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

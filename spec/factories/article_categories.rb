@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :article_category do
-    user { Current.user || association(:user) }
+    user { User.find_by(superuser: true) || association(:user) }
     name { "Character" }
   end
 end

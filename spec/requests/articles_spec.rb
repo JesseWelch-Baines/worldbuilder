@@ -61,4 +61,17 @@ RSpec.describe "articles", type: :request do
 
     expect(response.body).to include("#{article.name} deleted")
   end
+
+  describe "article fields" do
+    let(:article_field) { create(:article_field, article_category: article_category) }
+    let(:article) { create(:article, category: article_category) }
+    let(:article_field_value) { create(:article_field_value, article: article, article_field: article_field, value: "Test Value") }
+    before { article_field_value }
+
+    it "persists article field values" do
+      get article_category_article_path(article_category, article)
+
+      expect(response.body).to include(article_field_value.value)
+    end
+  end
 end

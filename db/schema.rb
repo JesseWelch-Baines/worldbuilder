@@ -66,7 +66,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_09_133127) do
 
   create_table "article_field_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "world_id", null: false
     t.uuid "article_id", null: false
     t.uuid "article_field_id", null: false
     t.string "value"
@@ -75,7 +74,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_09_133127) do
     t.index ["article_field_id"], name: "index_article_field_values_on_article_field_id"
     t.index ["article_id"], name: "index_article_field_values_on_article_id"
     t.index ["user_id"], name: "index_article_field_values_on_user_id"
-    t.index ["world_id"], name: "index_article_field_values_on_world_id"
   end
 
   create_table "article_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -151,6 +149,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_09_133127) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "superuser", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
